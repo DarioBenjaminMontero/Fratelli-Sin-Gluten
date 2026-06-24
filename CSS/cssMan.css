@@ -1,0 +1,83 @@
+.burbujaCategorias{
+    width: 90%;
+    margin: 40px auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.categoria{
+    height: 140px;
+    border-radius: 15px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    cursor: pointer;
+
+    background-size: cover;
+    background-position: center;
+
+    transition: all .3s ease;
+}
+
+.categoria:hover{
+    transform: scale(1.03);
+}
+
+.categoria::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0,0,0,.35);
+}
+
+.categoria::after{
+    content: attr(data-categoria);
+
+    position: relative;
+    z-index: 2;
+
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+
+    text-transform: capitalize;
+}
+.categoria[data-categoria="alfajores"]{
+    background-image: url("../imagenes/alfajores.jfif");
+}
+
+.categoria[data-categoria="panaderia"]{
+    background-image: url("../imagenes/panaderia.jfif");
+}
+
+.categoria[data-categoria="galletas"]{
+    background-image: url("../imagenes/galletas.jfif");
+}
+
+.categoria[data-categoria="budines"]{
+    background-image: url("../imagenes/budines.jfif");
+}
+
+.categoria[data-categoria="postres"]{
+    background-image: url("../imagenes/postres.jfif");
+}
+
+.categoria[data-categoria="comidas"]{
+    background-image: url("../imagenes/comidas.jfif");
+}
+
+.categoria[data-categoria="promociones"]{
+    background-image: url("../imagenes/promociones.jfif");
+}
+
+.categoria[data-categoria="jugos"]{
+    background-image: url("../imagenes/jugos.jfif");
+}
