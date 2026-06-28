@@ -1,14 +1,15 @@
 <div class="registro-container">
 
-    <img src="../imagenes/logo-fratelli.png" alt="Logo" class="logo">
+    <img src="../imagenes/fratelli.png" alt="Logo" class="logo">
 
     <h2>Crear Cuenta</h2>
     <p class="subtitulo">Únete a Fratelli Sin Gluten</p>
 
     <form id="formRegistro" autocomplete="off">
 
+        <!-- Usuario -->
         <div class="form-group">
-            <label>Nombre de Usuario</label>
+            <label for="Usuario">Nombre de Usuario</label>
             <input
                 type="text"
                 id="Usuario"
@@ -17,8 +18,25 @@
                 required>
         </div>
 
+        <!-- Correo -->
+        <div class="form-group correo-group">
+            <label for="correo">Correo electrónico</label>
+
+            <div class="input-correo">
+                <span class="icono">✉</span>
+
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    placeholder="ejemplo@correo.com"
+                    required>
+            </div>
+        </div>
+
+        <!-- Contraseña -->
         <div class="form-group">
-            <label>Contraseña</label>
+            <label for="contraseña">Contraseña</label>
             <input
                 type="password"
                 id="contraseña"
@@ -27,8 +45,9 @@
                 required>
         </div>
 
+        <!-- Confirmar contraseña -->
         <div class="form-group">
-            <label>Confirmar contraseña</label>
+            <label for="contraseña-2">Confirmar contraseña</label>
             <input
                 type="password"
                 id="contraseña-2"

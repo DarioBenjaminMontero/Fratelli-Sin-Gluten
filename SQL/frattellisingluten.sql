@@ -1,5 +1,5 @@
-CREATE DATABASE RestauranteDB;
-USE RestauranteDB;
+CREATE DATABASE frattellisingluten;
+USE frattellisingluten;
 
 CREATE TABLE Ubicaciones (
     UbicacionID INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE Usuarios (
     UsuarioID INT AUTO_INCREMENT PRIMARY KEY,
     nombre_usuario VARCHAR(100) NOT NULL,
     correo VARCHAR(100) NOT NULL UNIQUE,
-    contrasenia VARCHAR(255) NOT NULL,
+    contraseña VARCHAR(255) NOT NULL,
     admin BOOLEAN DEFAULT FALSE,
     UbicacionID INT,
     FOREIGN KEY (UbicacionID)
@@ -86,7 +86,7 @@ CREATE TABLE Preparaciones (
 INSERT INTO Ubicaciones(ubicacion, casa_departamento, numero, piso)
 VALUES ('Av. Siempre Viva', 'Casa', '742', 'PB');
 
-INSERT INTO Usuarios(nombre_usuario, correo, contrasenia, admin, UbicacionID)
+INSERT INTO Usuarios(nombre_usuario, correo, contraseña, admin, UbicacionID)
 VALUES ('Juan Perez','juan@gmail.com','1234',0,1);
 
 INSERT INTO Productos(nombre_producto, stock_producto, precio)
