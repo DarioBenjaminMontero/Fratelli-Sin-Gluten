@@ -2,32 +2,48 @@
 
 <header class="header">
 
-    <div id="barraInicio">
-        <a href="index.php?page=main" class="logo">
-            <img src="../imagenes/logo-fratelli.png" alt="Logo fratelli" class="logo-img">
-        </a>
-    </div>
+    <!-- Logo -->
+    <a href="index.php?page=main" class="logo">
+        <img src="../imagenes/logo-fratelli.png" alt="Logo Fratelli" class="logo-img">
+    </a>
 
-    <div class="header-left">
-        <button id="botonMenu">Menú</button>
+    <!-- Menú de navegación -->
+    <nav class="header-left">
+
+        <button id="botonMenu">☰ Menú</button>
+
         <ul id="menu">
-            <li id="li-inicio">Página Principal</li>
+            <li id="li-inicio">Inicio</li>
         </ul>
-    </div>
 
+    </nav>
+
+    <!-- Usuario -->
     <div class="header-right">
-        <?php if (isset($_SESSION['user_id'])): ?>
+
+        <?php if(isset($_SESSION['user_id'])): ?>
+
             <div class="user-profile">
+
+                <span class="saludo">
+                    ¡Hola, <?= htmlspecialchars($_SESSION['username']) ?>!
+                </span>
+
                 <button id="botonPerfil">Perfil</button>
-                <span class="saludo">¡Hola, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
+
                 <ul>
-                    <li id="li-carrito">Ver carrito</li>
+                    <li id="li-carrito">🛒 Carrito</li>
                 </ul>
+
             </div>
+
         <?php else: ?>
-            <button id="botonRegister">Registrate!</button>
-            <button id="botonLogin">Inicie sesión!</button>
+
+            <button id="botonRegister">Registrarse</button>
+            <button id="botonLogin">Iniciar sesión</button>
+
         <?php endif; ?>
+
     </div>
 
 </header>

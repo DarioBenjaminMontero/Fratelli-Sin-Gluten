@@ -1,0 +1,140 @@
+.burbujaCategorias{
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* ===========================
+   TARJETAS
+=========================== */
+
+.categoria{
+    width: 350px;
+    height: 220px;
+
+    border: none;
+    padding: 0;
+
+    border-radius: 20px;
+    overflow: hidden;
+
+    position: relative;
+
+    cursor: pointer;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: transform .3s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.categoria:hover{
+    transform: scale(1.03);
+}
+
+.categoria::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+}
+
+.categoria::after{
+    content: attr(data-categoria);
+
+    position: relative;
+    z-index: 2;
+
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+
+    text-transform: capitalize;
+}
+
+/* ===========================
+   IMÁGENES
+=========================== */
+
+.categoria[data-categoria="alfajores"]{
+    background-image: url("../imagenes/alfajores.jfif");
+}
+
+.categoria[data-categoria="panaderia"]{
+    background-image: url("../imagenes/panes.jfif");
+}
+
+.categoria[data-categoria="galletas"]{
+    background-image: url("../imagenes/galletas.jfif");
+}
+
+.categoria[data-categoria="budines"]{
+    background-image: url("../imagenes/budines.jfif");
+}
+
+.categoria[data-categoria="postres"]{
+    background-image: url("../imagenes/postres.jfif");
+}
+
+.categoria[data-categoria="comidas"]{
+    background-image: url("../imagenes/comidas.jfif");
+}
+
+.categoria[data-categoria="promociones"]{
+    background-image: url("../imagenes/promociones.jfif");
+}
+
+.categoria[data-categoria="jugos"]{
+    background-image: url("../imagenes/jugos.jfif");
+}
+
+/* ===========================
+   RECOMENDACIONES
+=========================== */
+
+#recomendaciones{
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+}
+
+/* ===========================
+   MÁS VENDIDOS
+=========================== */
+
+#masVendidos{
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 1100px){
+
+    .categoria{
+        width: 45%;
+    }
+
+}
+
+@media (max-width: 700px){
+
+    .categoria{
+        width: 100%;
+        height: 180px;
+    }
+
+}
