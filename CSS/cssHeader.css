@@ -8,7 +8,7 @@ header{
 
     padding: 0 50px;
 
-    background: #ffffff;
+    background: #f5d6a8;
     box-shadow: 0 3px 15px rgba(0,0,0,.08);
 
     position: sticky;
@@ -29,8 +29,8 @@ header{
 }
 
 .logo-img{
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 

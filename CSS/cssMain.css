@@ -1,3 +1,8 @@
+body{
+    background-color: #e7d1ad;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3D2C25;
+}
 .burbujaCategorias{
     width: 90%;
     max-width: 1200px;

@@ -4,5 +4,6 @@
         <!-- conexiones -->
         <link rel="stylesheet" href="../CSS/cssMain.css">
         <link rel="stylesheet" href="../CSS/cssHeader.css">
+        <link rel="stylesheet" href="../CSS/cssFooter.css">
       
-        <link rel="icon" type="image/png" href="../imagenes/logo-fratelli.png">
+        <link rel="icon" type="image/png" href="../imagenes/fratelli.png">

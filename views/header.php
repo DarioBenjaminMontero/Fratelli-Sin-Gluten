@@ -4,7 +4,7 @@
 
     <!-- Logo -->
     <a href="index.php?page=main" class="logo">
-        <img src="../imagenes/logo-fratelli.png" alt="Logo Fratelli" class="logo-img">
+        <img src="../imagenes/fratelli.png" alt="Logo Fratelli" class="logo-img">
     </a>
 
     <!-- Menú de navegación -->
