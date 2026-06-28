@@ -4,11 +4,11 @@
     <form action="#" method="POST">
       <div class="form-group">
         <label for="Usuario">Nombre De Usuario</label>
-        <input type="text" id="emLogin" name="USER"  required />
+        <input type="text" id="Usuario" name="USER"  required />
       </div>
       <div class="form-group">
-        <label for="password">Contraseña</label>
-        <input type="password" id="passwordLogin" name="password" required />
+        <label for="contraseña">Contraseña</label>
+        <input type="password" id="contraseña" name="password" required />
       </div>
       <button type="button" id="boton-Login">Entrar</button>
     </form>
