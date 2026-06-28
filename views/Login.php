@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="../CSS/estiloLogin.css" />
   <div class="login-container">
-    <img src="../imagenes/logo-fratelli.png" alt="Logo" class="logo" />
+    <img src="../imagenes/fratelli.png" alt="Logo" class="logo" />
     <h2>Iniciar Sesión</h2>
     <form action="#" method="POST">
       <div class="form-group">
         <label for="Usuario">Nombre De Usuario</label>
-        <input type="USUARIO" id="emLogin" name="USER"  required />
+        <input type="text" id="emLogin" name="USER"  required />
       </div>
       <div class="form-group">
         <label for="password">Contraseña</label>

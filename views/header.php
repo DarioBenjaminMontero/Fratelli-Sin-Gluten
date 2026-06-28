@@ -49,3 +49,5 @@
 </header>
 
 <script src="../JS/buscarUsuario.js"></script>
+<script src="../JS/botonlogin.js"></script>
+<script src="../JS/botonregistro.js"></script>
