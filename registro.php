@@ -25,7 +25,7 @@ echo json_encode(["error" => "el usuario ya existe", "msj" => "el usuario ya exi
 exit;
 }else{
 
-$sql1 = "INSERT INTO usuarios (nombre_usuario, correo, contraseña, admin, UbicacionId) VALUES (?, ?, ?, ?, ?)";
+$sql1 = "INSERT INTO usuarios (nombre_usuario, correo, contrasenia, admin, UbicacionId) VALUES (?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conexion, $sql1);
 mysqli_stmt_bind_param($stmt, "sssii", $usuario, $correo, $contraseña, $admin, $ubicacion);
 if(mysqli_stmt_execute($stmt)){

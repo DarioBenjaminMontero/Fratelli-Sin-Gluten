@@ -1,4 +1,5 @@
 <?php
+session_start();
 define('VIEWS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 $page = $_GET['page'] ?? "main";

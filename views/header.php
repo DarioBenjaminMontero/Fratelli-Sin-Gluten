@@ -26,7 +26,7 @@
             <div class="user-profile">
 
                 <span class="saludo">
-                    ¡Hola, <?= htmlspecialchars($_SESSION['username']) ?>!
+                    ¡Hola, <?= htmlspecialchars($_SESSION['nombre_usuario']) ?>!
                 </span>
 
                 <button id="botonPerfil">Perfil</button>
@@ -38,7 +38,6 @@
             </div>
 
         <?php else: ?>
-
             <button id="botonRegister">Registrarse</button>
             <button id="botonLogin">Iniciar sesión</button>
 
