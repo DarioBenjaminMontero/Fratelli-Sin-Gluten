@@ -10,7 +10,7 @@ if (!$conexion) {
 if (!empty($_POST["Usuario"]) && !empty($_POST["contraseña"])) {
     $usuario = $_POST["Usuario"];
     $contraseña = $_POST["contraseña"];
-    $query = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasenia = ?";
+    $query = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contraseña = ?";
     $stmt = mysqli_prepare($conexion, $query);
     mysqli_stmt_bind_param($stmt, "ss", $usuario, $contraseña);
     mysqli_stmt_execute($stmt);
