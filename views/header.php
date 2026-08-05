@@ -13,7 +13,7 @@
         <button id="botonMenu">☰ Menú</button>
 
         <ul id="menu">
-            <li id="li-inicio">Inicio</li>
+            <li id="li-inicio">INICIO</li>
         </ul>
 
     </nav>

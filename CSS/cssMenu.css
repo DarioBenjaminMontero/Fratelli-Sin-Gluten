@@ -1,0 +1,40 @@
+/* Transición suave para achicar/desplazar todo el sitio */
+body {
+    transition: margin-left 0.9s ease, width 0.3s ease;
+    overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
+}
+
+/* Menú lateral fijado a la derecha fuera de pantalla */
+#menu {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Ancho del menú (oculto por defecto) */
+    width: 300px;
+    height: 100vh;
+    background-color: #f4d0a5; /* Color acorde a tu paleta */
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Clase activa cuando el menú se abre */
+#menu.open {
+    left: 0;
+}
+
+/* Efecto al abrir: achica/empuja el contenido del body */
+body.menu-abierto {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+}
+
+/* Botón para cerrar (opcional) */
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    float: right;
+}
