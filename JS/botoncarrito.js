@@ -1,0 +1,1 @@
+const botonCarrito = document.getElementById("li-carrito");

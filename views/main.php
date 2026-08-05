@@ -25,3 +25,10 @@
 <div id="masVendidos">
 
 </div>
+<div class="productos_carrito"></div>
+<div class="footer_carrito">
+    <h3>Total:</h3> <h3 id="total"></h3>
+    <button>
+        Pagar
+    </button>
+</div>

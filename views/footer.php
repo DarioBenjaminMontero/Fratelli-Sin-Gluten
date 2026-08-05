@@ -5,3 +5,4 @@
         <img src="../imagenes/instagram2.png" alt="Instagram" class="redes">
     </a>
 </footer>
+<script src="../JS/botoncarrito.js"></script>
