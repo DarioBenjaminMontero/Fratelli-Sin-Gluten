@@ -26,6 +26,13 @@ case 'Login':
     $footer = './footer.php';
     $css = '../CSS/cssRegister.css';
     break;
+    case 'Perfil':
+    $vista = './Perfil.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssPerfil.css';
+    break;
 }
 include(VIEWS_PATH . 'layout.php');
 ?>
