@@ -1,7 +1,7 @@
 <?php require_once '../config/config.php'; ?>
 
 <header class="header">
-
+<link rel="stylesheet" href="../CSS/cssMenu.css">
     <!-- Logo -->
     <a href="index.php?page=main" class="logo">
         <img src="../imagenes/fratelli.png" alt="Logo Fratelli" class="logo-img">
@@ -13,7 +13,7 @@
         <button id="botonMenu">☰ Menú</button>
 
         <ul id="menu">
-            <li id="li-inicio">Inicio</li>
+            <li id="li-inicio">INICIO</li>
         </ul>
 
     </nav>

@@ -15,4 +15,5 @@
     <?php if (!empty($footer)) include $footer; ?>
 </footer>
 </body>
+  <script src="../JS/botonMenu.js"></script>
 </html>
