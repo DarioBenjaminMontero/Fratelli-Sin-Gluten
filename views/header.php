@@ -1,7 +1,7 @@
 <?php require_once '../config/config.php'; ?>
 
 <header class="header">
-
+<link rel="stylesheet" href="../CSS/cssMenu.css">
     <!-- Logo -->
     <a href="index.php?page=main" class="logo">
         <img src="../imagenes/fratelli.png" alt="Logo Fratelli" class="logo-img">

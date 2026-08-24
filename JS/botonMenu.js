@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Evitar que los clics DENTRO del menú lo cierren
-    sideMenu.addEventListener("click", (e) => {
+    menu.addEventListener("click", (e) => {
         e.stopPropagation();
     });
 
