@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-08-2026 a las 21:49:14
+-- Tiempo de generación: 31-08-2026 a las 00:02:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,6 +31,19 @@ CREATE TABLE `categorias` (
   `idCategoria` int(11) NOT NULL,
   `nombreCategoria` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`idCategoria`, `nombreCategoria`) VALUES
+(1, 'alfajores'),
+(2, 'panaderia'),
+(3, 'galletas'),
+(4, 'budines'),
+(5, 'postres'),
+(6, 'comidas'),
+(7, 'jugos');
 
 -- --------------------------------------------------------
 
@@ -128,16 +141,49 @@ CREATE TABLE `productos` (
   `nombre_producto` varchar(100) NOT NULL,
   `stock_producto` int(11) NOT NULL DEFAULT 0,
   `precio` decimal(10,2) NOT NULL,
-  `categoria` varchar(255) NOT NULL
+  `categoria` varchar(255) NOT NULL,
+  `subCategoria` varchar(255) NOT NULL,
+  `imagen` varchar(255) NOT NULL DEFAULT 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGNAoEKWGZpxpt5j1CcTmjQxSIpiJAxMwx45NOLeYCIA&s=10'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`ProductoID`, `nombre_producto`, `stock_producto`, `precio`, `categoria`) VALUES
-(1, 'Hamburguesa', 50, 3500.00, ''),
-(2, 'Papas Fritas', 80, 1800.00, '');
+INSERT INTO `productos` (`ProductoID`, `nombre_producto`, `stock_producto`, `precio`, `categoria`, `subCategoria`, `imagen`) VALUES
+(1, 'Hamburguesa', 50, 3500.00, '6', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROhwWsgIbx2emDG-DgOCtfCmiYs3WYu6UaP1yJi0F6IA&s=10'),
+(2, 'Papas Fritas', 80, 1800.00, '6', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKgCtlu5dH-xstYKxK73UmznIihcsh90nOL5aeXve5yQ&https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKgCtlu5dH-xstYKxK73UmznIihcsh90nOL5aeXve5yQ&shttps://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK'),
+(3, 'Hamburguesa Completa', 50, 3500.00, '6', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhhv-ozMdYTexZBEi7LttnxiFLMx8uYsWHvH44bQogUg&s=10'),
+(4, 'Papas Fritas Grandes', 80, 1800.00, '6', '5', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtLhKRZKUejc2MQKLvdwSC-gyo9naIRk1AbYtl5aYFfw&s=10'),
+(5, 'Pizza Muzzarella', 30, 4500.00, '6', '3', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwu6oawq4oB9SETZujr5uIuqhRbKWF2p0E0m1lJ6dLCw&s=10'),
+(6, 'Alfajor de Chocolate', 120, 850.00, '1', '4', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu3v74ftVDdF5QgzbQfAPKSxYMmfXLwvIrVgl9zcwlgw&s=10'),
+(7, 'Budín de Limón', 25, 1200.00, '4', '1', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv7j-eKZnOXyRkJQRQBOtfoOWHe-ClYPoVeGQVxetKyw&s=10'),
+(8, 'Exprimido de Naranja', 40, 950.00, '7', '7', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThCb19We5f0B-puvtagAU9L0HoZ_2Q2_g1ao9tDRHeOQ&s=10'),
+(9, 'Medialunas de Grasa', 200, 200.00, '2', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbR0maD68uVZAUxPF5m9pQFBAbVI_oO8Fv3LbIK5VWCg&s=10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `subcategorias`
+--
+
+CREATE TABLE `subcategorias` (
+  `idSubCategoria` int(11) NOT NULL,
+  `nombreSubCategoria` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `subcategorias`
+--
+
+INSERT INTO `subcategorias` (`idSubCategoria`, `nombreSubCategoria`) VALUES
+(1, 'tiene_fruta'),
+(2, 'contiene_pan'),
+(3, 'contiene_lacteos'),
+(4, 'con_chocolate'),
+(5, 'salado'),
+(6, 'dulce'),
+(7, 'bebidas_sin_alcohol');
 
 -- --------------------------------------------------------
 
@@ -226,7 +272,14 @@ ALTER TABLE `preparaciones`
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
-  ADD PRIMARY KEY (`ProductoID`);
+  ADD PRIMARY KEY (`ProductoID`),
+  ADD KEY `fk_productos_subcategorias` (`subCategoria`);
+
+--
+-- Indices de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`idSubCategoria`);
 
 --
 -- Indices de la tabla `ubicaciones`
@@ -250,7 +303,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `detallepedido`
@@ -274,7 +327,13 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `ProductoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ProductoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  MODIFY `idSubCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `ubicaciones`
