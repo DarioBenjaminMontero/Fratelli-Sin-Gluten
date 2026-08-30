@@ -25,3 +25,4 @@
 <div id="masVendidos">
 
 </div>
+<script src = "../JS/entrarACategoria.js"></script>
