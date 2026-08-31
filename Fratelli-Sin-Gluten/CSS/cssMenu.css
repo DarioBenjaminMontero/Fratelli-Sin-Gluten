@@ -1,0 +1,60 @@
+/* Transición suave para achicar/desplazar todo el sitio */
+body {
+transition: margin-left 0.9s ease;
+    overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
+}
+
+/* Menú lateral fijado a la derecha fuera de pantalla */
+#menu {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Ancho del menú (oculto por defecto) */
+    width: 300px;
+    height: 100vh;
+    background-color: #f4d0a5; /* Color acorde a tu paleta */
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    z-index: 500;
+    transition: left 0.9s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    
+}
+
+/* Clase activa cuando el menú se abre */
+#menu.open {
+    left: 0;
+}
+
+/* Efecto al abrir: achica/empuja el contenido del body */
+body.menu-abierto {
+    margin-left: 300px;
+}
+
+/* Botón para cerrar (opcional) */
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    float: right;
+}
+/* Capa oscura que bloquea el fondo cuando el menú está abierto */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Oscurece la pantalla */
+    z-index: 400; /* Debe estar por debajo del menú (500) pero sobre la página */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Cuando el cuerpo tiene la clase, activamos la capa de bloqueo */
+body.menu-abierto::after {
+    opacity: 1;
+    visibility: visible;
+}

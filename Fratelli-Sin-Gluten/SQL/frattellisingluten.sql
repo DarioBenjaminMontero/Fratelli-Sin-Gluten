@@ -1,0 +1,383 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 31-08-2026 a las 00:02:03
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `frattellisingluten`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `idCategoria` int(11) NOT NULL,
+  `nombreCategoria` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`idCategoria`, `nombreCategoria`) VALUES
+(1, 'alfajores'),
+(2, 'panaderia'),
+(3, 'galletas'),
+(4, 'budines'),
+(5, 'postres'),
+(6, 'comidas'),
+(7, 'jugos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detallepedido`
+--
+
+CREATE TABLE `detallepedido` (
+  `DetalleID` int(11) NOT NULL,
+  `PedidoID` int(11) NOT NULL,
+  `ProductoID` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detallepedido`
+--
+
+INSERT INTO `detallepedido` (`DetalleID`, `PedidoID`, `ProductoID`, `cantidad`, `precio`) VALUES
+(1, 1, 1, 2, 3500.00),
+(2, 1, 2, 1, 1800.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ingredientes`
+--
+
+CREATE TABLE `ingredientes` (
+  `IngredienteID` int(11) NOT NULL,
+  `nombre_ingrediente` varchar(100) NOT NULL,
+  `stock_ingrediente` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ingredientes`
+--
+
+INSERT INTO `ingredientes` (`IngredienteID`, `nombre_ingrediente`, `stock_ingrediente`) VALUES
+(1, 'Pan', 100),
+(2, 'Carne', 80),
+(3, 'Queso', 50),
+(4, 'Papa', 200);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `PedidoID` int(11) NOT NULL,
+  `FechaPedido` datetime NOT NULL DEFAULT current_timestamp(),
+  `UsuarioID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`PedidoID`, `FechaPedido`, `UsuarioID`) VALUES
+(1, '2026-07-13 14:42:03', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `preparaciones`
+--
+
+CREATE TABLE `preparaciones` (
+  `ProductoID` int(11) NOT NULL,
+  `IngredienteID` int(11) NOT NULL,
+  `cantidad_ingredientes` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `preparaciones`
+--
+
+INSERT INTO `preparaciones` (`ProductoID`, `IngredienteID`, `cantidad_ingredientes`) VALUES
+(1, 1, 1.00),
+(1, 2, 1.00),
+(1, 3, 2.00),
+(2, 4, 3.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `ProductoID` int(11) NOT NULL,
+  `nombre_producto` varchar(100) NOT NULL,
+  `stock_producto` int(11) NOT NULL DEFAULT 0,
+  `precio` decimal(10,2) NOT NULL,
+  `categoria` varchar(255) NOT NULL,
+  `subCategoria` varchar(255) NOT NULL,
+  `imagen` varchar(255) NOT NULL DEFAULT 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGNAoEKWGZpxpt5j1CcTmjQxSIpiJAxMwx45NOLeYCIA&s=10'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`ProductoID`, `nombre_producto`, `stock_producto`, `precio`, `categoria`, `subCategoria`, `imagen`) VALUES
+(1, 'Hamburguesa', 50, 3500.00, '6', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROhwWsgIbx2emDG-DgOCtfCmiYs3WYu6UaP1yJi0F6IA&s=10'),
+(2, 'Papas Fritas', 80, 1800.00, '6', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKgCtlu5dH-xstYKxK73UmznIihcsh90nOL5aeXve5yQ&https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKgCtlu5dH-xstYKxK73UmznIihcsh90nOL5aeXve5yQ&shttps://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK'),
+(3, 'Hamburguesa Completa', 50, 3500.00, '6', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhhv-ozMdYTexZBEi7LttnxiFLMx8uYsWHvH44bQogUg&s=10'),
+(4, 'Papas Fritas Grandes', 80, 1800.00, '6', '5', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtLhKRZKUejc2MQKLvdwSC-gyo9naIRk1AbYtl5aYFfw&s=10'),
+(5, 'Pizza Muzzarella', 30, 4500.00, '6', '3', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwu6oawq4oB9SETZujr5uIuqhRbKWF2p0E0m1lJ6dLCw&s=10'),
+(6, 'Alfajor de Chocolate', 120, 850.00, '1', '4', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu3v74ftVDdF5QgzbQfAPKSxYMmfXLwvIrVgl9zcwlgw&s=10'),
+(7, 'Budín de Limón', 25, 1200.00, '4', '1', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv7j-eKZnOXyRkJQRQBOtfoOWHe-ClYPoVeGQVxetKyw&s=10'),
+(8, 'Exprimido de Naranja', 40, 950.00, '7', '7', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThCb19We5f0B-puvtagAU9L0HoZ_2Q2_g1ao9tDRHeOQ&s=10'),
+(9, 'Medialunas de Grasa', 200, 200.00, '2', '2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbR0maD68uVZAUxPF5m9pQFBAbVI_oO8Fv3LbIK5VWCg&s=10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `subcategorias`
+--
+
+CREATE TABLE `subcategorias` (
+  `idSubCategoria` int(11) NOT NULL,
+  `nombreSubCategoria` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `subcategorias`
+--
+
+INSERT INTO `subcategorias` (`idSubCategoria`, `nombreSubCategoria`) VALUES
+(1, 'tiene_fruta'),
+(2, 'contiene_pan'),
+(3, 'contiene_lacteos'),
+(4, 'con_chocolate'),
+(5, 'salado'),
+(6, 'dulce'),
+(7, 'bebidas_sin_alcohol');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ubicaciones`
+--
+
+CREATE TABLE `ubicaciones` (
+  `UbicacionID` int(11) NOT NULL,
+  `ubicacion` varchar(100) NOT NULL,
+  `casa_departamento` varchar(50) DEFAULT NULL,
+  `numero` varchar(20) DEFAULT NULL,
+  `piso` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ubicaciones`
+--
+
+INSERT INTO `ubicaciones` (`UbicacionID`, `ubicacion`, `casa_departamento`, `numero`, `piso`) VALUES
+(1, 'Av. Siempre Viva', 'Casa', '742', 'PB');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `UsuarioID` int(11) NOT NULL,
+  `nombre_usuario` varchar(100) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `contraseña` varchar(255) NOT NULL,
+  `admin` tinyint(1) DEFAULT 0,
+  `UbicacionID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`UsuarioID`, `nombre_usuario`, `correo`, `contraseña`, `admin`, `UbicacionID`) VALUES
+(1, 'Juan Perez', 'juan@gmail.com', '1234', 0, 1),
+(2, 'benjaxd', 'benjaxd@gmail.com', 'benjamuixd', 0, 1),
+(3, 'benjaxd', 'benja@gmail.com', 'benjaxd', 0, 1);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`idCategoria`);
+
+--
+-- Indices de la tabla `detallepedido`
+--
+ALTER TABLE `detallepedido`
+  ADD PRIMARY KEY (`DetalleID`),
+  ADD KEY `PedidoID` (`PedidoID`),
+  ADD KEY `ProductoID` (`ProductoID`);
+
+--
+-- Indices de la tabla `ingredientes`
+--
+ALTER TABLE `ingredientes`
+  ADD PRIMARY KEY (`IngredienteID`);
+
+--
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`PedidoID`),
+  ADD KEY `UsuarioID` (`UsuarioID`);
+
+--
+-- Indices de la tabla `preparaciones`
+--
+ALTER TABLE `preparaciones`
+  ADD PRIMARY KEY (`ProductoID`,`IngredienteID`),
+  ADD KEY `IngredienteID` (`IngredienteID`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`ProductoID`),
+  ADD KEY `fk_productos_subcategorias` (`subCategoria`);
+
+--
+-- Indices de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`idSubCategoria`);
+
+--
+-- Indices de la tabla `ubicaciones`
+--
+ALTER TABLE `ubicaciones`
+  ADD PRIMARY KEY (`UbicacionID`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`UsuarioID`),
+  ADD UNIQUE KEY `correo` (`correo`),
+  ADD KEY `UbicacionID` (`UbicacionID`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `detallepedido`
+--
+ALTER TABLE `detallepedido`
+  MODIFY `DetalleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `ingredientes`
+--
+ALTER TABLE `ingredientes`
+  MODIFY `IngredienteID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `PedidoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `ProductoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  MODIFY `idSubCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `ubicaciones`
+--
+ALTER TABLE `ubicaciones`
+  MODIFY `UbicacionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `UsuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `detallepedido`
+--
+ALTER TABLE `detallepedido`
+  ADD CONSTRAINT `detallepedido_ibfk_1` FOREIGN KEY (`PedidoID`) REFERENCES `pedidos` (`PedidoID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`ProductoID`) REFERENCES `productos` (`ProductoID`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`UsuarioID`) REFERENCES `usuarios` (`UsuarioID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `preparaciones`
+--
+ALTER TABLE `preparaciones`
+  ADD CONSTRAINT `preparaciones_ibfk_1` FOREIGN KEY (`ProductoID`) REFERENCES `productos` (`ProductoID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `preparaciones_ibfk_2` FOREIGN KEY (`IngredienteID`) REFERENCES `ingredientes` (`IngredienteID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`UbicacionID`) REFERENCES `ubicaciones` (`UbicacionID`) ON DELETE SET NULL ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
