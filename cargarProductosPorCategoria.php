@@ -19,7 +19,7 @@ if ($fila = mysqli_fetch_assoc($resultado)) {
     $idCategoria = $fila['idCategoria'];   
 }
 
-$query = "SELECT productos.imagen, productos.nombre_producto, productos.stock_producto, productos.precio, productos.subCategoria, subcategorias.nombreSubCategoria FROM productos INNER JOIN subcategorias ON productos.subCategoria = subcategorias.idSubCategoria WHERE productos.categoria = ?;";
+$query = "SELECT productos.ProductoID,productos.imagen, productos.nombre_producto, productos.stock_producto, productos.precio, productos.subCategoria, subcategorias.nombreSubCategoria FROM productos INNER JOIN subcategorias ON productos.subCategoria = subcategorias.idSubCategoria WHERE productos.categoria = ?;";
 $stmt = mysqli_prepare($conexion, $query);
 mysqli_stmt_bind_param($stmt, "i", $idCategoria);
 mysqli_stmt_execute($stmt);

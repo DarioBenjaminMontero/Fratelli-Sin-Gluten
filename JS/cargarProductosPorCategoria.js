@@ -47,6 +47,12 @@ let textoLimpio = arraySubCategorias[i].replace(/_/g, " ");
     divCardCompleta.appendChild(img);
     divCardCompleta.appendChild(divTextoInfo);
 
+     divCardCompleta.addEventListener("click", ()=> {
+
+        window.location.href = `index.php?page=producto&producto=${producto.ProductoID}`;
+
+     })
+
     let contenedorDestino = document.querySelector("." + producto.nombreSubCategoria);
     if (contenedorDestino) {
         contenedorDestino.appendChild(divCardCompleta);
