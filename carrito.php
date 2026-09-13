@@ -16,7 +16,8 @@ $sql1 = "SELECT
     p.nombre_producto, 
     dp.cantidad, 
     dp.precio, 
-    p.imagen, 
+    p.imagen,
+    p.ProductoID, 
     (dp.cantidad * dp.precio) AS precio_total
 FROM detallepedido dp
 INNER JOIN pedidos ped ON dp.PedidoID = ped.PedidoID
