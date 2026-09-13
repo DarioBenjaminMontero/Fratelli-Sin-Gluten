@@ -1,0 +1,170 @@
+/* cssProducto.css */
+
+/* Remueve las reglas globales de body que alinean todo al centro de la pantalla */
+.producto-contenedor {
+  display: flex;
+  gap: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 40px auto; /* Centra el bloque horizontalmente en la página sin romper el layout */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* TARJETA IZQUIERDA */
+.card-izquierda {
+  background-color: #ebd2b0;
+  flex: 1;
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.imagen-contenedor {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+}
+
+.imagen-producto {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.banner-descuento {
+  background-color: #d4f8d4;
+  color: #2e7d32;
+  text-align: center;
+  padding: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.precio-seccion {
+  display: flex;
+  flex-direction: column;
+}
+
+.precio-anterior {
+  color: #9e9e9e;
+  text-decoration: line-through;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.precio-actual {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000;
+}
+
+.fila-acciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selector-cantidad {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.btn-cantidad {
+  background-color: #ff8a80;
+  color: white;
+  border: none;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cantidad-numero {
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btn-ingredientes {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-agregar {
+  background-color: #ffca28;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.btn-agregar .precio-boton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.btn-agregar .precio-tachado-mini {
+  text-decoration: line-through;
+  font-size: 9px;
+  color: #666;
+}
+
+/* TARJETA DERECHA */
+.card-derecha {
+  background-color: #d1b4a1;
+  flex: 1;
+  padding: 25px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: #000;
+}
+
+.card-derecha h1 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.descripcion-titulo {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.descripcion-texto {
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: justify;
+}
+
+.lista-detalles {
+  margin-left: 18px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.lista-detalles li {
+  margin-bottom: 5px;
+}

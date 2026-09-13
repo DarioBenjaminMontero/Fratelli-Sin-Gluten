@@ -12,6 +12,13 @@ case 'main':
     $footer = './footer.php';
     $css = '../CSS/cssMain.css';
 break;
+case 'creadores':
+    $vista = './sobre-nosotros.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssMain.css';
+break;
 case 'producto':
     $vista = './producto.php';
     $vistaHeader = './header.php';
