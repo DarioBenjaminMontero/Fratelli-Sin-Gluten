@@ -46,9 +46,9 @@
     </div>
 
     <ul class="lista-detalles">
-      <li><strong>Ingredientes principales:</strong> Masa artesanal, dulce de leche, almendras tostadas seleccionadas.</li>
-      <li><strong>Ideal para:</strong> Acompañar con un buen café o regalar un mimo dulce.</li>
-      <li><strong>Alérgenos:</strong> Contiene frutos secos (almendras), derivados de leche y trigo.</li>
+      <li><strong>Ingredientes principales:</strong> <strong id = "ingredientes"></strong></li>
+      <li><strong>Descripcion:</strong> <strong id= "descripcion"></strong></li>
+      <li><strong>Alérgenos:</strong><strong id= "alergenos"></strong></li>
     </ul>
   </div>
 

@@ -1,36 +1,64 @@
-/* cssProducto.css */
+/* ==========================================
+   PRODUCTO CONTENEDOR Y TARJETAS REESTILIZADAS
+   ========================================== */
+body {
+background-color: #e7d1ad;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
-/* Remueve las reglas globales de body que alinean todo al centro de la pantalla */
+/* 2. Convertimos el body en un contenedor Flexbox vertical */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 3. El contenedor principal absorbe todo el espacio libre pushing al footer abajo */
+main, .producto-contenedor {
+  flex: 1;
+}
+
+/* 4. El footer no se encoge y se queda al final */
+footer {
+  flex-shrink: 0;
+}
 .producto-contenedor {
   display: flex;
-  gap: 20px;
-  max-width: 900px;
+  gap: 24px;
+  max-width: 950px;
   width: 100%;
-  margin: 40px auto; /* Centra el bloque horizontalmente en la página sin romper el layout */
+  margin: 40px auto;
   padding: 0 20px;
   box-sizing: border-box;
 }
 
 /* TARJETA IZQUIERDA */
 .card-izquierda {
-  background-color: #ebd2b0;
+  background-color: #f7ebda; /* Tono crema más limpio que combina con el fondo general */
   flex: 1;
-  padding: 20px;
-  border-radius: 4px;
+  padding: 24px;
+  border-radius: 16px; /* Bordes suaves alineados con el diseño principal */
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
+  box-shadow: 0 4px 15px rgba(61, 44, 37, 0.08); /* Sombra suave con el color base #3D2C25 */
+  border: 1px solid rgba(61, 44, 37, 0.1);
 }
 
 .imagen-contenedor {
   position: relative;
   width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
   background-color: #fff;
 }
 
 .imagen-producto {
   width: 100%;
-  height: 250px;
+  height: 260px;
   object-fit: cover;
   display: block;
 }
@@ -41,7 +69,8 @@
   text-align: center;
   padding: 6px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
 }
 
 .precio-seccion {
@@ -50,16 +79,16 @@
 }
 
 .precio-anterior {
-  color: #9e9e9e;
+  color: #8c7b73;
   text-decoration: line-through;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .precio-actual {
   font-size: 32px;
   font-weight: bold;
-  color: #000;
+  color: #3D2C25; /* Mismo color del texto principal del body */
 }
 
 .fila-acciones {
@@ -72,49 +101,71 @@
   display: flex;
   align-items: center;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
+  border: 1px solid rgba(61, 44, 37, 0.15);
 }
 
 .btn-cantidad {
-  background-color: #ff8a80;
+  background-color: #e57373;
   color: white;
   border: none;
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cantidad:hover {
+  background-color: #d32f2f;
 }
 
 .cantidad-numero {
-  padding: 0 10px;
+  padding: 0 14px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
+  color: #3D2C25;
 }
 
 .btn-ingredientes {
   background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 11px;
+  border: 1px solid rgba(61, 44, 37, 0.2);
+  color: #3D2C25;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-ingredientes:hover {
+  background-color: #3D2C25;
+  color: #fff;
 }
 
 .btn-agregar {
-  background-color: #ffca28;
+  background-color: #3D2C25; /* Integrado con la paleta principal */
+  color: #fff;
   border: none;
-  padding: 8px 15px;
-  border-radius: 4px;
+  padding: 12px 18px;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   cursor: pointer;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 3px 8px rgba(61, 44, 37, 0.2);
+}
+
+.btn-agregar:hover {
+  background-color: #2a1e19;
+  transform: translateY(-1px);
 }
 
 .btn-agregar .precio-boton {
@@ -125,46 +176,64 @@
 
 .btn-agregar .precio-tachado-mini {
   text-decoration: line-through;
-  font-size: 9px;
-  color: #666;
+  font-size: 10px;
+  color: #d1b4a1;
 }
 
 /* TARJETA DERECHA */
 .card-derecha {
-  background-color: #d1b4a1;
+  background-color: #f7ebda;
   flex: 1;
-  padding: 25px;
-  border-radius: 4px;
+  padding: 28px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  color: #000;
+  gap: 16px;
+  color: #3D2C25;
+  box-shadow: 0 4px 15px rgba(61, 44, 37, 0.08);
+  border: 1px solid rgba(61, 44, 37, 0.1);
 }
 
 .card-derecha h1 {
-  font-size: 28px;
+  font-size: 26px;
   text-align: center;
   margin-bottom: 5px;
+  color: #3D2C25;
 }
 
 .descripcion-titulo {
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 5px;
+  color: #3D2C25;
 }
 
 .descripcion-texto {
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1.5;
   text-align: justify;
+  color: #523f36;
 }
 
 .lista-detalles {
   margin-left: 18px;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: #523f36;
 }
 
 .lista-detalles li {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+}
+
+.lista-detalles strong {
+  color: #3D2C25;
+}
+
+/* RESPONSIVE PARA EL CONTENEDOR DE PRODUCTO */
+@media (max-width: 768px) {
+  .producto-contenedor {
+    flex-direction: column;
+    margin: 20px auto;
+  }
 }

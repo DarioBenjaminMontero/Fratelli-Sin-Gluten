@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const nombre = document.getElementById("nombreProducto");
   const precioActual = document.querySelector(".precio-actual");
   const precioProducto = document.querySelector(".precio-producto"); // El precio dentro del botón "Agregar"
-
+const desc = document.getElementById("descripcion");
+const aler = document.getElementById("alergenos");
   if (imagen && nombre && precioActual) {
 
     fetch("../producto.php", { 
@@ -20,12 +21,27 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error(res.error);
         return;
       }
+
       imagen.src = res.imagen;
       nombre.textContent = res.nombre_producto;
       precioActual.textContent = `$${res.precio}`;
-
+      desc.textContent = res.descripcion;
+      aler.textContent = res.alergenos
       if (precioProducto) {
         precioProducto.textContent = `$${res.precio}`;
+      }
+
+      if(res.ingredientes && res.ingredientes.length > 0){
+
+      const listaIngredientes = res.ingredientes
+          .map(ing => ing.nombre_ingrediente)
+          .join(", ");
+          console.log(listaIngredientes)
+const elementoIngredientes = document.getElementById("ingredientes");
+
+ if (elementoIngredientes) {
+          elementoIngredientes.textContent = listaIngredientes;
+        }
       }
 
     })
