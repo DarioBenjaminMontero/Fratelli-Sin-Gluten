@@ -28,7 +28,7 @@ const aler = document.getElementById("alergenos");
       desc.textContent = res.descripcion;
       aler.textContent = res.alergenos
       if (precioProducto) {
-        precioProducto.textContent = `$${res.precio}`;
+        precioProducto.textContent = "$0";
       }
 
       if(res.ingredientes && res.ingredientes.length > 0){
