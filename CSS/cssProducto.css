@@ -237,3 +237,79 @@ footer {
     margin: 20px auto;
   }
 }
+/* ==========================================
+   MEJORAS ADICIONALES: CONTADOR Y STOCK
+   ========================================== */
+
+/* Estilos para el indicador de stock */
+.stock-indicador {
+  font-size: 13px;
+  color: #523f36;
+  background-color: rgba(61, 44, 37, 0.05);
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px dashed rgba(61, 44, 37, 0.2);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.stock-etiqueta {
+  font-weight: 500;
+}
+
+#stock-producto {
+  color: #2e7d32; /* Tono verde para resaltar que hay existencias */
+  font-weight: bold;
+}
+
+/* Rediseño estilizado para el selector de cantidad */
+.selector-cantidad {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(61, 44, 37, 0.15);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  
+  /* NUEVOS AJUSTES PARA QUE NO SE APLASTE */
+  flex-shrink: 0; 
+  margin-right: 12px; 
+}
+
+
+.btn-cantidad {
+  background-color: #3D2C25; /* Cambiado a marrón oscuro para unificar la paleta */
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cantidad:hover {
+  background-color: #2a1e19;
+}
+
+/* El número central ahora se ve como un casillero limpio */
+.cantidad-numero {
+  min-width: 40px; /* Ancho fijo para que no salte la caja entre 9 y 10 */
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #3D2C25;
+  background-color: #faf6f0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgba(61, 44, 37, 0.1);
+  border-right: 1px solid rgba(61, 44, 37, 0.1);
+}
