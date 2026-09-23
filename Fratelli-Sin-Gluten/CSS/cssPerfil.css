@@ -1,0 +1,46 @@
+.bodycontenedor img{
+    padding: 50px;
+    height: 100px;
+    border-radius: 120px;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#eed2a8;
+}
+
+.bodycontenedor{
+    width:380px;
+    margin:90px auto;
+    padding:35px;
+    background:#f7e4c6;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    text-align:center;
+    border:2px solid #d6b07b;
+}
+
+
+.logo{
+    width:90px;
+    margin-bottom:15px;
+}
+
+
+.bodycontenedor h2{
+    color:#7b4b2a;
+    margin-bottom:25px;
+    font-size:30px;
+}
+#i{
+    margin-top: 30px;
+}
+.bodycontenedor h4{
+    color:#7b4b2a;
+    margin-bottom:25px;
+}
+
+
+
