@@ -193,7 +193,7 @@ INSERT INTO `subcategorias` (`idSubCategoria`, `nombreSubCategoria`) VALUES
 
 CREATE TABLE `ubicaciones` (
   `UbicacionID` int(11) NOT NULL,
-  `ubicacion` varchar(100) NOT NULL,
+  `ubicacion` varchar(100) DEFAULT NULL,
   `casa_departamento` varchar(50) DEFAULT NULL,
   `numero` varchar(20) DEFAULT NULL,
   `piso` varchar(20) DEFAULT NULL
