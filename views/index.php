@@ -1,8 +1,7 @@
 <?php
 session_start();
 define('VIEWS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
-$_SESSION['user_id']=1;
-$_SESSION['nombre_usuario']="santi";
+
 $page = $_GET['page'] ?? "main";
 switch($page){
 

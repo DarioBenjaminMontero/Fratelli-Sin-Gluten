@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const desc = document.getElementById("descripcion");
 const aler = document.getElementById("alergenos");
   if (imagen && nombre && precioActual) {
-
+    try{
     fetch("../producto.php", { 
       method: "POST",
       headers: {
@@ -45,8 +45,9 @@ const elementoIngredientes = document.getElementById("ingredientes");
       }
 
     })
-    .catch(err => console.error("Error al obtener el producto:", err));
+    
 
   }
-
+  catch(error){err => console.error("Error al obtener el producto:", err)}
+  }
 });
