@@ -19,7 +19,7 @@ if (!$accion || !$productoId) {
     exit;
 }
 
-$sqlPedido = "SELECT PedidoID FROM pedidos WHERE UsuarioID = ? LIMIT 1";
+$sqlPedido = "SELECT PedidoID FROM pedidos WHERE UsuarioID = ? AND estado = 0 LIMIT 1";
 $stmtPed = mysqli_prepare($conexion, $sqlPedido);
 mysqli_stmt_bind_param($stmtPed, "i", $idUsuario);
 mysqli_stmt_execute($stmtPed);
