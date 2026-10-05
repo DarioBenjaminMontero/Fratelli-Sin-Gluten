@@ -1,6 +1,8 @@
 <?php
 session_start();
 define('VIEWS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+
+
 $page = $_GET['page'] ?? "main";
 switch($page){
 
@@ -32,6 +34,14 @@ case 'categoria':
     $footer = './footer.php';
     $css = '../CSS/cssCategoria.css';
  $script = '../JS/cargarProductosPorCategoria.js'; 
+break;
+case 'pagar':
+    $vista = './pagar.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssCategoria.css';
+ $script = '../JS/pagar.js'; 
 break;
 case 'Login':
     $vista = './Login.php';
