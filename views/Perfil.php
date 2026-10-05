@@ -24,4 +24,5 @@
     </div>
     
 </div>
+<script>const productoID = <?php echo json_encode($_GET['producto'] ?? null); ?>;</script>
 <script src="../JS/perfil.js"></script>
