@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-const botoninsertar = document.getElementById("ingresar");
+const boton = document.getElementById("volver");
 botoninsertar.addEventListener("click", () => {
-    let usuarioPuesto = document.getElementById("nombre").value ? document.getElementById("nombre").value:$_SESSION['nombre_usuario'];
+     usuarioPuesto = document.getElementById("nombre").value ? document.getElementById("nombre").value:usuarioPuesto;
     let contraseñaPuesta = document.getElementById("contra").value;
     let contraseñanueva = document.getElementById("contran").value;
-    let ubicacion = document.getElementById("ubicacion").value ? document.getElementById("ubicacion").value:$_SESSION['nombre_usuario'];
-    let departamentonum = document.getElementById("depn").value ? document.getElementById("depn").value:$_SESSION['nombre_usuario'];
-    let departamentopiso = document.getElementById("depp").value ? document.getElementById("depp").value:$_SESSION['nombre_usuario'];
+     ubicacion = document.getElementById("ubicacion").value ? document.getElementById("ubicacion").value:ubicacion;
+     departamentonum = document.getElementById("depn").value ? document.getElementById("depn").value:departamentonum;
+     departamentopiso = document.getElementById("depp").value ? document.getElementById("depp").value:departamentopiso;
     if (usuarioPuesto || contraseñaPuesta || contraseñanueva || ubicacion || departamentonum || departamentopiso) {
         fetch("../perfil.php", {
             method: "POST",
@@ -30,7 +30,35 @@ botoninsertar.addEventListener("click", () => {
             body: "Usuario=" + encodeURIComponent(usuarioPuesto) + "&contraseña=" + encodeURIComponent(contraseñaPuesta) + "&contraseñanueva=" + encodeURIComponent(contraseñanueva) + "&ubicacion=" + encodeURIComponent(ubicacion) + "&departamentonumero=" + encodeURIComponent(departamentonum) + "&departamentopiso=" + encodeURIComponent(departamentopiso)
         }).then(res => res.json()).then(res => {
             if (res.success) {
+                document.getElementById("errores").innerHTML = res.message;
+            } else {
+                document.getElementById("errores").innerHTML = res.error;
+            }
+        })
+    }
+    else {
+        console.log("Escribi algo");
+    }
 
+});
+const botoninsertar = document.getElementById("ingresar");
+botoninsertar.addEventListener("click", () => {
+     usuarioPuesto = document.getElementById("nombre").value ? document.getElementById("nombre").value:usuarioPuesto;
+    let contraseñaPuesta = document.getElementById("contra").value;
+    let contraseñanueva = document.getElementById("contran").value;
+     ubicacion = document.getElementById("ubicacion").value ? document.getElementById("ubicacion").value:ubicacion;
+     departamentonum = document.getElementById("depn").value ? document.getElementById("depn").value:departamentonum;
+     departamentopiso = document.getElementById("depp").value ? document.getElementById("depp").value:departamentopiso;
+    if (usuarioPuesto || contraseñaPuesta || contraseñanueva || ubicacion || departamentonum || departamentopiso) {
+        fetch("../perfil.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "Usuario=" + encodeURIComponent(usuarioPuesto) + "&contraseña=" + encodeURIComponent(contraseñaPuesta) + "&contraseñanueva=" + encodeURIComponent(contraseñanueva) + "&ubicacion=" + encodeURIComponent(ubicacion) + "&departamentonumero=" + encodeURIComponent(departamentonum) + "&departamentopiso=" + encodeURIComponent(departamentopiso)
+        }).then(res => res.json()).then(res => {
+            if (res.success) {
+                document.getElementById("errores").innerHTML = res.message;
             } else {
                 document.getElementById("errores").innerHTML = res.error;
             }

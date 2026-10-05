@@ -10,7 +10,7 @@ $usuario = $_POST["Usuario"];
 if (!empty($_POST["contraseña"])&&!empty($_POST["contraseñanueva"])) {
     $contraseña=$_POST["contraseña"];
     $contraseñanueva=$_POST["contraseñanueva"];
-    $query = "UPDATE usuario SET contraseña=? WHERE UsuarioID = ?";
+    $query = "UPDATE usuarios SET contraseña=? WHERE UsuarioID = ?";
     $stmt = mysqli_prepare($conexion, $query);
     mysqli_stmt_bind_param($stmt, "ss", $contraseñanueva, $_SESSION['user_id']);
     mysqli_stmt_execute($stmt);
@@ -19,7 +19,7 @@ if(!empty($_POST["ubicacion"])){
      $ubicacion=$_POST["ubicacion"];
      $departamentonumero=$_POST["departamentonumero"];
      $departamentopiso=$_POST["departamentopiso"];
-     $query = "SELECT UbicacionID FROM usuario WHERE UsuarioID = ?";
+     $query = "SELECT UbicacionID FROM usuarios WHERE UsuarioID = ?";
     $stmt = mysqli_prepare($conexion, $query);
     mysqli_stmt_bind_param($stmt, "s", $_SESSION['user_id']);
     mysqli_stmt_execute($stmt);
@@ -39,12 +39,19 @@ if(!empty($_POST["ubicacion"])){
     }
     }
     else{
+         $query = "SELECT UbicacionID FROM usuarios WHERE UsuarioID = ?";
+        $stmt = mysqli_prepare($conexion, $query);
+        mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $ubicacionID = mysqli_fetch_assoc($result)['UbicacionID'];
     if(!empty($_POST["departamentonumero"])&&!empty($_POST["departamentopiso"])){
-        $query = "UPDATE ubicaciones SET ubicacion=?, casa_departamento=?,numero=?,piso=? WHERE UsuarioID = ?";
+        $dep="departamento";
+        $query = "UPDATE ubicaciones SET ubicacion=?, casa_departamento=?,numero=?,piso=? WHERE UbicacionID = ?";
     $stmt = mysqli_prepare($conexion, $query);
-    mysqli_stmt_bind_param($stmt, "sssss", $ubicacion, "departamento", $departamentonumero, $departamentopiso, $_SESSION['user_id']);
+    mysqli_stmt_bind_param($stmt, "ssssi", $ubicacion, $dep, $departamentonumero, $departamentopiso, $ubicacionID);
     mysqli_stmt_execute($stmt);
-    if(mysqli_stmt_affected_rows($stmt) > 0){
+    if($stmt==true){
         echo json_encode(["success" => true, "message" => "Ubicación actualizada correctamente"]);
         $_SESSION['ubicacion'] = $ubicacion;
         $_SESSION['casa_departamento'] = "departamento";
@@ -56,16 +63,17 @@ if(!empty($_POST["ubicacion"])){
     }
     }
     else{
-       $query = "UPDATE ubicaciones SET ubicacion=?, casa_departamento=? WHERE UsuarioID = ?";
+       $query = "UPDATE ubicaciones SET ubicacion=?, casa_departamento=? WHERE UbicacionID = ?";
     $stmt = mysqli_prepare($conexion, $query);
-    mysqli_stmt_bind_param($stmt, "sss", $ubicacion, "casa", $_SESSION['user_id']);
+    mysqli_stmt_bind_param($stmt, "ssi", $ubicacion, "casa", $ubicacionID);
     mysqli_stmt_execute($stmt);
     $_SESSION['ubicacion'] = $ubicacion;
     $_SESSION['casa_departamento'] = "casa";
     }
     }
 }
-mysqli_close($conexion);
+
 else {
     echo json_encode(["error" => "Faltan datos requeridos"]);
+    mysqli_close($conexion);
 }
