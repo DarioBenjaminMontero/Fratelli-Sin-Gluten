@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2026 a las 19:40:17
+-- Tiempo de generación: 05-10-2026 a las 21:36:26
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -98,15 +98,16 @@ INSERT INTO `ingredientes` (`IngredienteID`, `nombre_ingrediente`, `stock_ingred
 CREATE TABLE `pedidos` (
   `PedidoID` int(11) NOT NULL,
   `FechaPedido` datetime NOT NULL DEFAULT current_timestamp(),
-  `UsuarioID` int(11) NOT NULL
+  `UsuarioID` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`PedidoID`, `FechaPedido`, `UsuarioID`) VALUES
-(1, '2026-07-13 14:42:03', 1);
+INSERT INTO `pedidos` (`PedidoID`, `FechaPedido`, `UsuarioID`, `estado`) VALUES
+(1, '2026-07-13 14:42:03', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -207,6 +208,16 @@ CREATE TABLE `ubicaciones` (
 
 INSERT INTO `ubicaciones` (`UbicacionID`, `ubicacion`, `casa_departamento`, `numero`, `piso`) VALUES
 (1, 'Av. Siempre Viva', 'Casa', '742', 'PB');
+
+--
+-- Disparadores `ubicaciones`
+--
+DELIMITER $$
+CREATE TRIGGER `incertar_buscar_id_ubicacion` AFTER INSERT ON `ubicaciones` FOR EACH ROW BEGIN
+    UPDATE usuarios set UbicacionID=NEW.UbicacionID;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -341,7 +352,7 @@ ALTER TABLE `subcategorias`
 -- AUTO_INCREMENT de la tabla `ubicaciones`
 --
 ALTER TABLE `ubicaciones`
-  MODIFY `UbicacionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `UbicacionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
