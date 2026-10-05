@@ -45,6 +45,21 @@ if ($rowPed = mysqli_fetch_assoc($resPed)) {
         mysqli_stmt_execute($stmtDel);
     }
 
+    $sqlCount = "SELECT COUNT(*) AS total FROM detallepedido WHERE PedidoID = ?";
+    $stmtCount = mysqli_prepare($conexion, $sqlCount);
+    mysqli_stmt_bind_param($stmtCount, "i", $pedidoId);
+    mysqli_stmt_execute($stmtCount);
+    $resCount = mysqli_stmt_get_result($stmtCount);
+    $rowCount = mysqli_fetch_assoc($resCount);
+
+    // Si ya no quedan detalles, eliminamos el pedido principal
+    if ($rowCount && $rowCount['total'] == 0) {
+        $sqlDelPed = "DELETE FROM pedidos WHERE PedidoID = ?";
+        $stmtDelPed = mysqli_prepare($conexion, $sqlDelPed);
+        mysqli_stmt_bind_param($stmtDelPed, "i", $pedidoId);
+        mysqli_stmt_execute($stmtDelPed);
+    }
+
     echo json_encode(['ok' => true], JSON_UNESCAPED_UNICODE);
 } else {
     echo json_encode(['ok' => false, 'error' => 'No se encontró el pedido.'], JSON_UNESCAPED_UNICODE);
