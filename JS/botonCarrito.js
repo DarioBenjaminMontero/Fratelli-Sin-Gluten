@@ -73,6 +73,18 @@ document.addEventListener("DOMContentLoaded", () => {
     menuCarrito.addEventListener("click", (e) => {
         e.stopPropagation();
 
+        // 1. Verificar si se hizo clic en el botón de Finalizar Compra
+        if (e.target.classList.contains("btn-finalizar")) {//arregla aca 8====================================================================================================================D
+            document.addEventListener("DOMContentLoaded", function() {//arregla aca 8====================================================================================================================D
+  const botonperfil = document.getElementById("botonPerfil");//arregla aca 8====================================================================================================================D
+  if (botonperfil) {//arregla aca 8====================================================================================================================D
+    botonperfil.addEventListener("click", () => {//arregla aca 8====================================================================================================================D
+       window.location.href = "index.php?page=pagar"; //arregla aca 8====================================================================================================================D
+    });//arregla aca 8====================================================================================================================D
+  }//arregla aca 8====================================================================================================================D
+});
+        }
+
         const boton = e.target.closest("[data-id]");
         if (!boton) return; // Si no se hizo clic en un elemento con data-id, ignora
 
