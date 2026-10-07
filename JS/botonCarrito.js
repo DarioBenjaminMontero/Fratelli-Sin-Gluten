@@ -69,20 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Delegación de eventos para los botones de cantidad y borrado (+, -, ❌)
+ // Delegación de eventos para los botones de cantidad y borrado 
     menuCarrito.addEventListener("click", (e) => {
         e.stopPropagation();
 
         // 1. Verificar si se hizo clic en el botón de Finalizar Compra
-        if (e.target.classList.contains("btn-finalizar")) {//arregla aca 8====================================================================================================================D
-            document.addEventListener("DOMContentLoaded", function() {//arregla aca 8====================================================================================================================D
-  const botonperfil = document.getElementById("botonPerfil");//arregla aca 8====================================================================================================================D
-  if (botonperfil) {//arregla aca 8====================================================================================================================D
-    botonperfil.addEventListener("click", () => {//arregla aca 8====================================================================================================================D
-       window.location.href = "index.php?page=pagar"; //arregla aca 8====================================================================================================================D
-    });//arregla aca 8====================================================================================================================D
-  }//arregla aca 8====================================================================================================================D
-});
+        if (e.target.classList.contains("btn-finalizar")) {
+            window.location.href = "index.php?page=pagar";
+            return;
         }
 
         const boton = e.target.closest("[data-id]");

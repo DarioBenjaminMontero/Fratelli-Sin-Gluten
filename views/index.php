@@ -40,7 +40,7 @@ case 'pagar':
     $vistaHeader = './header.php';
     $head = './head.php';
     $footer = './footer.php';
-    $css = '../CSS/cssCategoria.css';
+    $css = '../CSS/pagar.css';
  $script = '../JS/pagar.js'; 
 break;
 case 'Login':
