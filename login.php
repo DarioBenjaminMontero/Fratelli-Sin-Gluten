@@ -20,6 +20,9 @@ if (!empty($_POST["Usuario"]) && !empty($_POST["contraseña"])) {
         $_SESSION['user_id'] = $user['UsuarioID'];
         $_SESSION['nombre_usuario'] = $user['nombre_usuario'];
         $_SESSION['Rol'] = $user['admin'];
+        $_SESSION['ubicacion'] = "";
+        $_SESSION['numero'] = "";
+        $_SESSION['piso'] = "";
         echo json_encode(["success" => true, "user" => $user]); 
     } else {
         echo json_encode(["error" => "Usuario o contraseña incorrectos"]);

@@ -6,7 +6,15 @@ if (!$conexion) {
     echo json_encode(["error" => "No se pudo conectar a la base de datos"]);
     exit;
 }
+$logout = $_POST["volver"];
+if ($logout==true) {
+    session_destroy();
+    echo json_encode(["success" => true, "message" => "Sesión cerrada correctamente"]);
+    exit;
+}
+else if($logout==false){
 $usuario = $_POST["Usuario"];
+
 if (!empty($_POST["contraseña"])&&!empty($_POST["contraseñanueva"])) {
     $contraseña=$_POST["contraseña"];
     $contraseñanueva=$_POST["contraseñanueva"];
@@ -71,6 +79,7 @@ if(!empty($_POST["ubicacion"])){
     $_SESSION['casa_departamento'] = "casa";
     }
     }
+}
 }
 
 else {
