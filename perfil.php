@@ -7,12 +7,12 @@ if (!$conexion) {
     exit;
 }
 $logout = $_POST["volver"];
-if ($logout==true) {
+if (!empty($logout)) {
     session_destroy();
-    echo json_encode(["success" => true, "message" => "Sesión cerrada correctamente"]);
+    echo json_encode(["success" => true, "message" => "Sesión cerrada correctamente $logout"]);
     exit;
 }
-else if($logout==false){
+else if(empty($logout)){
 $usuario = $_POST["Usuario"];
 
 if (!empty($_POST["contraseña"])&&!empty($_POST["contraseñanueva"])) {
@@ -38,12 +38,14 @@ if(!empty($_POST["ubicacion"])){
         $stmt = mysqli_prepare($conexion, $query);
         mysqli_stmt_bind_param($stmt, "ssss",  $ubicacion, "departamento", $departamentonumero, $departamentopiso);
         mysqli_stmt_execute($stmt);
+        echo json_encode(["success" => true, "message" => "Ubicación se a ingresado correctamente"]);
         }
         else{
         $query = "INSERT INTO ubicaciones ( ubicacion, casa_departamento, numero, piso) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($conexion, $query);
         mysqli_stmt_bind_param($stmt, "ssss",  $ubicacion, "casa", "", "");
         mysqli_stmt_execute($stmt);
+        echo json_encode(["success" => true, "message" => "Ubicación se a ingresado correctamente"]);
     }
     }
     else{
@@ -75,6 +77,7 @@ if(!empty($_POST["ubicacion"])){
     $stmt = mysqli_prepare($conexion, $query);
     mysqli_stmt_bind_param($stmt, "ssi", $ubicacion, "casa", $ubicacionID);
     mysqli_stmt_execute($stmt);
+    echo json_encode(["success" => true, "message" => "Ubicación actualizada correctamente"]);
     $_SESSION['ubicacion'] = $ubicacion;
     $_SESSION['casa_departamento'] = "casa";
     }

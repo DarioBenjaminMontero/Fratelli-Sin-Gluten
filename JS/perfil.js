@@ -44,7 +44,7 @@ botoninsertar.addEventListener("click", () => {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: "Usuario=" + encodeURIComponent(usuarioPuesto) + "&contraseña=" + encodeURIComponent(contraseñaPuesta) + "&contraseñanueva=" + encodeURIComponent(contraseñanueva) + "&ubicacion=" + encodeURIComponent(ubicacion) + "&departamentonumero=" + encodeURIComponent(departamentonum) + "&departamentopiso=" + encodeURIComponent(departamentopiso)+ "&volver=false"
+            body: "Usuario=" + encodeURIComponent(usuarioPuesto) + "&contraseña=" + encodeURIComponent(contraseñaPuesta) + "&contraseñanueva=" + encodeURIComponent(contraseñanueva) + "&ubicacion=" + encodeURIComponent(ubicacion) + "&departamentonumero=" + encodeURIComponent(departamentonum) + "&departamentopiso=" + encodeURIComponent(departamentopiso)+ "&volver="
         }).then(res => res.json()).then(res => {
             if (res.success) {
                 document.getElementById("errores").innerHTML = res.message;
