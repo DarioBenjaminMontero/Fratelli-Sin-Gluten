@@ -41,6 +41,14 @@ case 'pagar':
     $css = '../CSS/pagar.css';
  $script = '../JS/pagar.js'; 
 break;
+case 'admin':
+    $vista = './admin.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/admin.css';
+ $script = '../JS/admin.js'; 
+break;
 case 'Login':
     $vista = './Login.php';
     $vistaHeader = './header.php';
