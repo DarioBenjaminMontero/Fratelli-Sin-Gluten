@@ -1,7 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
 const  botonMenos = document.getElementById("btn-cantidad-menos");
 const botonMas = document.getElementById("btn-cantidad-mas");
 const cantidadPlasmada = document.getElementById("cantidad-numero");
 const precioProducto = document.querySelector(".precio-producto");
+const botonAgregarCarrito = document.getElementById("btn-agregar")
 let cantidad = 0; 
 let precio =0;
 let precioFinal=0;
@@ -27,7 +29,7 @@ stockProducto.textContent = stock;
 
 
 botonMas.addEventListener("click", ()=>{
-
+console.log("hola")
     if(cantidad < stock){
  cantidad =cantidad+1;
     }
@@ -37,7 +39,7 @@ precioProducto.textContent = `$${precioFinal}`
 })
 
 botonMenos.addEventListener("click", ()=>{
-
+console.log("hola")
 if(cantidad <=0){
     }
     else {
@@ -50,8 +52,17 @@ precioProducto.textContent = `$${precioFinal}`
 })
 cantidadPlasmada.textContent = cantidad;
 
+botonAgregarCarrito.addEventListener("click", ()=>{
+    fetch("../actualizarDetallesPedidos.php", {
+method: "POST",
+headers:{
+    "Content-Type": "application/x-www-form-urlencoded"
+},
 
+body: "id=" + encodeURIComponent(user_id) + "&productoID=" +
+ encodeURIComponent(productoID) + "&cantidad=" + encodeURIComponent(cantidad) + "&precio=" + encodeURIComponent(precioFinal)
 
-
-
+    }).then(res=>res.json()).then(res =>console.log(res))
+})
+})
 

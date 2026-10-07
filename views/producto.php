@@ -29,7 +29,7 @@
         <button id="btn-cantidad-mas" class="btn-cantidad">+</button>
       </div>
 
-      <button class="btn-agregar">
+      <button id="btn-agregar">
         <span>Agregar</span>
         <div class="precio-boton">
           <span class="precio-tachado-mini"> </span>
@@ -59,6 +59,11 @@
     const productoID = <?php echo json_encode($_GET['producto'] ?? null); ?>;
   </script>
   <script src="../JS/producto.js"></script>
+  <script>
+
+const user_id = <?php  echo json_encode($_SESSION["user_id"])  ?>
+
+  </script>
   <script src="../JS/botonesProducto.js"></script>
 
 </main>
