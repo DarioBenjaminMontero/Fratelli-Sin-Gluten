@@ -15,10 +15,10 @@ if (!isset($idUsuario)) {
 $sql1 = "SELECT 
     p.nombre_producto, 
     dp.cantidad, 
-    dp.precio, 
+    p.precio, 
     p.imagen,
     p.ProductoID, 
-    (dp.cantidad * dp.precio) AS precio_total
+    (dp.cantidad * p.precio) AS precio_total
 FROM detallepedido dp
 INNER JOIN pedidos ped ON dp.PedidoID = ped.PedidoID
 INNER JOIN productos p ON dp.ProductoID = p.ProductoID
