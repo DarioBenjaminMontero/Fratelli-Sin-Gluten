@@ -53,6 +53,10 @@ precioProducto.textContent = `$${precioFinal}`
 cantidadPlasmada.textContent = cantidad;
 
 botonAgregarCarrito.addEventListener("click", ()=>{
+    if(cantidad <= 0){
+alert("La cantidad debe ser estrictamente mayor a 0")
+return
+    }
     fetch("../actualizarDetallesPedidos.php", {
 method: "POST",
 headers:{
