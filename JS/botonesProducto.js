@@ -66,14 +66,7 @@ headers:{
 body: "id=" + encodeURIComponent(user_id) + "&productoID=" +
  encodeURIComponent(productoID) + "&cantidad=" + encodeURIComponent(cantidad) + "&precio=" + encodeURIComponent(precioFinal)
 
-    }).then(res=>res.json()).then(res =>{
-
-console.log(res)
-alert(res.mensaje)
-    })
-
-    location.reload()
+    }).then(res=>res.json()).then(res =>console.log(res))
 })
-
 })
 

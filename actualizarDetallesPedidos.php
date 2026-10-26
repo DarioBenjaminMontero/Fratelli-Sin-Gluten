@@ -21,6 +21,7 @@ function insertarDetallePedido($conexion, $pedidoID, $productoID, $precio, $cant
     $stmt = mysqli_prepare($conexion, $sql2);
     mysqli_stmt_bind_param($stmt, "iiid", $pedidoID, $productoID, $cantidad, $precio);
     mysqli_stmt_execute($stmt);
+    echo json_encode(["mensaje" => "joya"]);
 }
 
 function comprobarExistencia($conexion, $productoID, $idUsuario)
@@ -29,18 +30,6 @@ function comprobarExistencia($conexion, $productoID, $idUsuario)
     $sql = "SELECT ProductoId FROM detallepedido INNER JOIN pedidos ON detallepedido.PedidoID = pedidos.PedidoID WHERE detallepedido.ProductoId = ? AND pedidos.estado = 0 AND pedidos.UsuarioID = ?";
     $stmt = mysqli_prepare($conexion, $sql);
     mysqli_stmt_bind_param($stmt, "ii", $productoID, $idUsuario);
-    mysqli_stmt_execute($stmt);
-    return mysqli_stmt_get_result($stmt);
-
-}
-
-function restarStock($conexion, $productoID, $cantidad){
-
-$sql = "UPDATE productos 
-SET stock_producto = stock_producto - ?
-WHERE ProductoID = ?;";
-$stmt = mysqli_prepare($conexion, $sql);
-    mysqli_stmt_bind_param($stmt, "ii", $cantidad, $productoID);
     mysqli_stmt_execute($stmt);
     return mysqli_stmt_get_result($stmt);
 
@@ -55,7 +44,6 @@ if ($pedido = mysqli_fetch_assoc($res)) {
         echo json_encode(["mensaje" => "Ya existe el producto en el carrito, si querés aumentarlo, hacelo desde el carrito"]);
     } else {
         insertarDetallePedido($conexion, $pedidoID, $productoID, $precio, $cantidad);
-        restarStock($conexion, $productoID, $cantidad);
         echo json_encode(["mensaje" => "Exito"]);
     }
 } else {
@@ -72,7 +60,6 @@ if ($pedido = mysqli_fetch_assoc($res)) {
             echo json_encode(["mensaje" => "Ya existe el producto en el carrito, si querés aumentarlo, hacelo desde el carrito"]);
         } else {
             insertarDetallePedido($conexion, $pedidoID, $productoID, $precio, $cantidad);
-            restarStock($conexion, $productoID, $cantidad);
             echo json_encode(["mensaje" => "Exito"]);
         }
     }

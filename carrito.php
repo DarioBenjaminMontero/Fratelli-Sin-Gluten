@@ -22,7 +22,7 @@ $sql1 = "SELECT
 FROM detallepedido dp
 INNER JOIN pedidos ped ON dp.PedidoID = ped.PedidoID
 INNER JOIN productos p ON dp.ProductoID = p.ProductoID
-WHERE ped.UsuarioID = ? ";
+WHERE ped.UsuarioID = ?  AND ped.estado = 0";
 
 $stmt = mysqli_prepare($conexion, $sql1);
 if (!$stmt) {
