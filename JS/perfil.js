@@ -58,3 +58,37 @@ botoninsertar.addEventListener("click", () => {
     }
 
 });
+function detallepedido(idpedido){
+    let santi=parseInt(idpedido)
+    console.log(typeof(santi))
+    sessionStorage.setItem('idpedido',santi)
+    window.location.href = "index.php?page=Datallepedido";
+}
+
+function cargarHistorial() {
+    fetch("../perfil.php", {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "historial=true"+"&volver="
+    }).then(res => res.json())
+    .then(res => {
+        let historialDiv = document.getElementById("historial");
+        historialDiv.innerHTML = "";
+        if(res.pedidos === "") {
+            historialDiv.innerHTML = "<p>No hay pedidos en el historial.</p>";
+        } else {
+            res.forEach(item => {
+                let itemDiv = document.createElement("div");
+                itemDiv.classList.add("historial-item");
+                itemDiv.innerHTML = `
+                    <button onclick=detallepedido(${item.PedidoID})>Numero de pedido: ${item.PedidoID} <br>Fecha: ${item.FechaPedido}</button>
+                `;
+                historialDiv.appendChild(itemDiv);
+            });
+        }
+    })
+
+}
+cargarHistorial();

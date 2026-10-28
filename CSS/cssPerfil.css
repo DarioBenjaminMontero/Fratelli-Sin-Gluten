@@ -1,7 +1,6 @@
-.bodycontenedor img{
-    padding: 50px;
+        .bodycontenedor img{
+    padding: 25px;
     height: 100px;
-    border-radius: 120px;
 }
 
 body{
@@ -11,6 +10,15 @@ body{
     background:#eed2a8;
 }
 
+.perfil{
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
 .bodycontenedor{
     width:380px;
     margin:90px auto;
@@ -20,6 +28,10 @@ body{
     box-shadow:0 10px 25px rgba(0,0,0,.15);
     text-align:center;
     border:2px solid #d6b07b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 
@@ -41,6 +53,3 @@ body{
     color:#7b4b2a;
     margin-bottom:25px;
 }
-
-
-

@@ -1,3 +1,4 @@
+<div class="perfil">
 <div class="bodycontenedor">
     <div class="perfilcontenedor">
     <div>
@@ -25,7 +26,11 @@
     <div><button id="volver">cerrar sesión</button></div>
     
 </div>
-<script> let usuarioPuesto = "<?= $_SESSION['nombre_usuario'] ?>";
+<div class="bodycontenedor" id="historial">
+</div>
+</div>
+<script>
+    let usuarioPuesto = "<?= $_SESSION['nombre_usuario'] ?>";
     let ubicacion =  "<?= $_SESSION['ubicacion'] ?>";
     let departamentonum =  "<?= $_SESSION['numero'] ?>";
     let departamentopiso = "<?= $_SESSION['piso'] ?>";

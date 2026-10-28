@@ -12,6 +12,23 @@ if (!empty($logout)) {
     echo json_encode(["success" => true, "message" => "Sesión cerrada correctamente $logout"]);
     exit;
 }
+else if(!empty($_POST["historial"])){
+    $query = "SELECT PedidoID,FechaPedido FROM pedidos WHERE UsuarioID = ? and estado = 1 ORDER BY FechaPedido DESC";
+        $stmt = mysqli_prepare($conexion, $query);
+        mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if(mysqli_num_rows($result) > 0) {
+            $pedidos = [];
+            while($row = mysqli_fetch_assoc($result)) {
+
+                $pedidos[] = $row;
+            }
+            echo json_encode($pedidos);
+        } else {
+            echo json_encode(["success" => true, "pedidos" => ""]);
+        }
+}
 else if(empty($logout)){
 $usuario = $_POST["Usuario"];
 
