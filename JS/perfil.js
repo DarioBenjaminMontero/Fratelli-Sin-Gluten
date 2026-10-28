@@ -62,7 +62,7 @@ function detallepedido(idpedido){
     let santi=parseInt(idpedido)
     console.log(typeof(santi))
     sessionStorage.setItem('idpedido',santi)
-    window.location.href = "index.php?page=Datallepedido";
+    window.location.href = "index.php?page=Detallepedido";
 }
 
 function cargarHistorial() {

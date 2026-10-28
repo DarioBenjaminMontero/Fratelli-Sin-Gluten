@@ -10,7 +10,7 @@ if (!$conexion) {
 
 $productoID = $_POST["productoID"];
 
-$sql = "SELECT nombre_producto, precio, imagen, descripcion, alergenos FROM productos WHERE ProductoID = ?;";
+$sql = "SELECT nombre_producto, precio, imagen, descripcion, alergenos FROM productos WHERE ProductoID = ? AND esta_borrado = 0;";
 $stmt = mysqli_prepare($conexion, $sql);
 mysqli_stmt_bind_param($stmt, "i", $productoID);
     mysqli_stmt_execute($stmt);
@@ -21,7 +21,7 @@ if ($producto = mysqli_fetch_assoc($res)) {
     $sqlIngredientes = "SELECT i.nombre_ingrediente, p.cantidad_ingredientes 
                         FROM preparaciones p 
                         INNER JOIN ingredientes i ON p.IngredienteID = i.IngredienteID 
-                        WHERE p.ProductoID = ?";
+                        WHERE p.ProductoID = ? ";
 
     $stmtIng = mysqli_prepare($conexion, $sqlIngredientes);
     mysqli_stmt_bind_param($stmtIng, "i", $productoID);

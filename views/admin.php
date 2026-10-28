@@ -51,21 +51,16 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Aquí puedes hacer un bucle en PHP para traer los productos de la BD -->
-                        <tr>
-                            <td>1</td>
-                            <td><img src="../imagenes/producto-ejemplo.jpg" alt="" width="40"></td>
-                            <td>Ejemplo de Producto</td>
-                            <td>$0.00</td>
-                            <td>
-                                <button class="btn-edit">✏️ Editar</button>
-                                <button class="btn-delete">🗑️ Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tabla-productos">
+            <!-- Los productos se cargarán dinámicamente con JavaScript -->
+        </tbody>
+                   
                 </table>
             </div>
         </section>
     </main>
 </div>
+
+<script src = "<?= $script ?>">
+
+</script>

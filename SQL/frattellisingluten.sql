@@ -146,7 +146,8 @@ CREATE TABLE `productos` (
   `subCategoria` varchar(255) NOT NULL,
   `imagen` varchar(255) NOT NULL DEFAULT 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGNAoEKWGZpxpt5j1CcTmjQxSIpiJAxMwx45NOLeYCIA&s=10',
   `descripcion` varchar(255) DEFAULT NULL,
-  `alergenos` varchar(255) DEFAULT NULL
+  `alergenos` varchar(255) DEFAULT NULL,
+  `esta_borrado` TINYINT(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
