@@ -22,21 +22,29 @@
     <div class="header-right">
 
         <?php if(isset($_SESSION['user_id'])): ?>
-
+            
             <div class="user-profile">
-
+                
                 <span class="saludo">
                     ¡Hola, <?= htmlspecialchars($_SESSION['nombre_usuario']) ?>!
                 </span>
 
                 <button id="botonPerfil">Perfil</button>
 
-                <ul>
-                    <li id="li-carrito">🛒 Carrito</li>
-                </ul>
-
+                <?php if(isset($_SESSION['Rol']) && $_SESSION['Rol'] == 1): ?>
+                    <button id="botonAdmin">Poderes de admin</button>
+                <?php endif; ?>
+                
             </div>
-
+            <div class="carrito-container">
+                <button id="botonCarrito">🛒 Carrito</button>
+                <ul id="menuCarrito">
+                    <!-- aca va a aparecer lo del select -->
+                    <li id="li-carrito">Cargando productos...</li>
+                </ul>
+            </div>
+    
+        </div>
         <?php else: ?>
             <button id="botonRegister">Registrarse</button>
             <button id="botonLogin">Iniciar sesión</button>
@@ -47,6 +55,9 @@
 
 </header>
 
+
+<script src="../JS/botoncarrito.js"></script>
 <script src="../JS/botonperfil.js"></script>
 <script src="../JS/botonlogin.js"></script>
+<script src="../JS/botonAdmin.js"></script>
 <script src="../JS/botonregistro.js"></script>

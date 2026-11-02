@@ -1,7 +1,6 @@
 <?php
 session_start();
 define('VIEWS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
-
 $page = $_GET['page'] ?? "main";
 switch($page){
 
@@ -11,6 +10,44 @@ case 'main':
     $head = './head.php';
     $footer = './footer.php';
     $css = '../CSS/cssMain.css';
+break;
+case 'creadores':
+    $vista = './sobre-nosotros.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssMain.css';
+break;
+case 'producto':
+    $vista = './producto.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssProducto.css';
+break;
+case 'categoria':
+    $vista = './productos.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssCategoria.css';
+ $script = '../JS/cargarProductosPorCategoria.js'; 
+break;
+case 'pagar':
+    $vista = './pagar.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/pagar.css';
+ $script = '../JS/pagar.js'; 
+break;
+case 'admin':
+    $vista = './admin.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/admin.css';
+ $script = '../JS/admin.js'; 
 break;
 case 'Login':
     $vista = './Login.php';
@@ -28,6 +65,13 @@ case 'Login':
     break;
     case 'Perfil':
     $vista = './Perfil.php';
+    $vistaHeader = './header.php';
+    $head = './head.php';
+    $footer = './footer.php';
+    $css = '../CSS/cssPerfil.css';
+    break;
+     case 'Detallepedido':
+    $vista = './detallepedido.php';
     $vistaHeader = './header.php';
     $head = './head.php';
     $footer = './footer.php';
