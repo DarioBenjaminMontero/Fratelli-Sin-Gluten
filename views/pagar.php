@@ -22,38 +22,38 @@ if (!isset($idUsuario)) {
             <!-- Formulario de Datos de Envío y Pago -->
             <div class="checkout-form-section">
                 <form action="../procesar_pago.php" method="POST" class="form-pagar">
-                    <h3>1. Datos de Envío</h3>
-                    
-                    <div class="form-group">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan Pérez">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <input type="text" id="direccion" name="direccion" required placeholder="Calle, número, depto">
-                    </div>
+    <h3>1. Datos de Envío</h3>
+    
+    <div class="form-group">
+        <label for="ubicacion">Calle / Avenida</label>
+        <input type="text" id="ubicacion" name="ubicacion" required placeholder="Ej. Av. Siempre Viva">
+    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ciudad">Ciudad</label>
-                            <input type="text" id="ciudad" name="ciudad" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="codigo_postal">Código Postal</label>
-                            <input type="text" id="codigo_postal" name="codigo_postal" required>
-                        </div>
-                    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="numero">Número</label>
+            <input type="text" id="numero" name="numero" required placeholder="Ej. 742">
+        </div>
+        <div class="form-group">
+            <label for="casa_departamento">Casa / Departamento</label>
+            <input type="text" id="casa_departamento" name="casa_departamento" required placeholder="Ej. Casa o Depto 4B">
+        </div>
+    </div>
 
-                    <h3 class="mt-4">2. Método de Pago</h3>
-                    <div class="payment-methods">
-                        <label class="radio-label">
-                            <input type="radio" name="metodo_pago" value="mp" checked> Mercado Pago (Tarjeta, Efectivo, Transferencia / QR)
-                        </label>
-                    </div>
+    <div class="form-group">
+        <label for="piso">Piso (Opcional)</label>
+        <input type="text" id="piso" name="piso" placeholder="Ej. PB o 2">
+    </div>
 
-                    <button type="submit" class="btn-confirmar-pago">Ir a Pagar con Mercado Pago</button>
-                </form>
+    <h3 class="mt-4">2. Método de Pago</h3>
+    <div class="payment-methods">
+        <label class="radio-label">
+            <input type="radio" name="metodo_pago" value="mercado_pago" checked> Mercado Pago (Tarjeta, Efectivo, Transferencia / QR)
+        </label>
+    </div>
+
+    <button type="submit" class="btn-confirmar-pago">Ir a Pagar con Mercado Pago</button>
+</form>
             </div>
 
             <!-- Resumen del Pedido -->
@@ -82,6 +82,6 @@ if (!isset($idUsuario)) {
     </div>
 
     <!-- Archivo JS para cargar el resumen -->
-    <script src="../js/pago.js"></script>
+    <script src="../js/pagar.js"></script>
 </body>
 </html>

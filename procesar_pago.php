@@ -1,15 +1,65 @@
 <?php
 session_start();
+
+// Cargamos la configuración y la conexión una sola vez
 require_once __DIR__ . '/config/config.php';
 
+// 1. Verificar si el usuario ha iniciado sesión y si la petición es POST
 $idUsuario = $_SESSION['user_id'] ?? null;
 
-if (!isset($idUsuario) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+if (!isset($idUsuario) || empty($idUsuario) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: views/pagar.php');
     exit;
 }
 
-// 1. Buscar el pedido activo (estado = 0) del usuario
+// 2. Recoger y limpiar los datos de envío del formulario
+$ubicacion = trim($_POST['ubicacion'] ?? '');
+$numero = trim($_POST['numero'] ?? '');
+$casa_depto = trim($_POST['casa_departamento'] ?? '');
+$piso = trim($_POST['piso'] ?? '');
+
+// Validar campos obligatorios de la ubicación
+if (empty($ubicacion) || empty($numero) || empty($casa_depto)) {
+    echo "<script>alert('Por favor, completa todos los campos obligatorios de la dirección.'); window.history.back();</script>";
+    exit();
+}
+
+// --- NUEVO: Asignar el ID de usuario a la variable global de MySQL para el Trigger ---
+$stmt_var = mysqli_prepare($conexion, "SET @id_usuario = ?");
+mysqli_stmt_bind_param($stmt_var, "i", $idUsuario);
+mysqli_stmt_execute($stmt_var);
+// ---------------------------------------------------------------------------------
+
+// 3. Verificar si el usuario ya tiene una ubicación idéntica registrada
+$sql_verificar = "SELECT UbicacionID FROM ubicaciones WHERE ubicacion = ? AND numero = ? AND casa_departamento = ? LIMIT 1";
+$stmt_ver = mysqli_prepare($conexion, $sql_verificar);
+mysqli_stmt_bind_param($stmt_ver, "sss", $ubicacion, $numero, $casa_depto);
+mysqli_stmt_execute($stmt_ver);
+$res_ver = mysqli_stmt_get_result($stmt_ver);
+
+if ($row_ubicacion = mysqli_fetch_assoc($res_ver)) {
+    $nuevo_ubicacion_id = $row_ubicacion['UbicacionID'];
+    
+    // Como la ubicación ya existe, el trigger de INSERT no se disparará. 
+    // Actualizamos manualmente al usuario para asegurar que se le enlace esta dirección reutilizada.
+    $sql_act = "UPDATE usuarios SET UbicacionID = ? WHERE UsuarioID = ?";
+    $stmt_act = mysqli_prepare($conexion, $sql_act);
+    mysqli_stmt_bind_param($stmt_act, "ii", $nuevo_ubicacion_id, $idUsuario);
+    mysqli_stmt_execute($stmt_act);
+
+} else {
+    // Si no existe, la insertamos. Al hacer el INSERT, el Trigger se ejecutará automáticamente 
+    // filtrando por @id_usuario y actualizará únicamente al usuario logueado.
+    $sql_ubicacion = "INSERT INTO ubicaciones (ubicacion, casa_departamento, numero, piso) VALUES (?, ?, ?, ?)";
+    $stmt_ubi = mysqli_prepare($conexion, $sql_ubicacion);
+    mysqli_stmt_bind_param($stmt_ubi, "ssss", $ubicacion, $casa_depto, $numero, $piso);
+    
+    if (!mysqli_stmt_execute($stmt_ubi)) {
+        die("Error al guardar la ubicación: " . mysqli_error($conexion));
+    }
+}
+
+// 4. Buscar el pedido activo (estado = 0) del usuario
 $sqlPedido = "SELECT p.PedidoID FROM pedidos p WHERE p.UsuarioID = ? AND p.estado = 0 LIMIT 1";
 $stmt = mysqli_prepare($conexion, $sqlPedido);
 mysqli_stmt_bind_param($stmt, "i", $idUsuario);
@@ -24,7 +74,7 @@ if (!$rowPed) {
 
 $pedidoId = $rowPed['PedidoID'];
 
-// 2. Obtener los detalles y verificar el stock actual de cada producto
+// 5. Obtener los detalles y verificar el stock actual de cada producto
 $sqlDetalles = "SELECT dp.cantidad, pr.ProductoID, pr.nombre_producto, pr.precio, pr.stock_producto 
                 FROM detallepedido dp 
                 JOIN productos pr ON dp.ProductoID = pr.ProductoID 
@@ -37,11 +87,10 @@ $resDet = mysqli_stmt_get_result($stmtDet);
 
 $itemsArray = [];
 while ($itemDet = mysqli_fetch_assoc($resDet)) {
-    // Verificación de stock: Si lo que pide el usuario supera el stock disponible, cancelamos
     if ($itemDet['cantidad'] > $itemDet['stock_producto']) {
         echo "<h3 style='color:red;'>Transacción cancelada</h3>";
         echo "<p>Lo sentimos, no hay suficiente stock para el producto: <strong>" . htmlspecialchars($itemDet['nombre_producto']) . "</strong>. Stock disponible: {$itemDet['stock_producto']}.</p>";
-        echo "<a href='views/pagar.php'>Volver al carrito</a>";
+        echo "<a href='index.php?page=pagar'>Volver al carrito</a>";
         exit;
     }
 
@@ -57,7 +106,7 @@ if (empty($itemsArray)) {
     exit;
 }
 
-// 3. Configurar tu Access Token de Mercado Pago
+// 6. Configurar tu Access Token de Mercado Pago
 $accessToken = 'APP_USR-3012748563648786-101414-5ad925c95df47b5237a1d5881066419f-3765911272'; 
 
 $preferenceData = [
@@ -67,11 +116,10 @@ $preferenceData = [
         "failure" => "http://localhost/frattellisingluten/views/fallo.php",
         "pending" => "http://localhost/frattellisingluten/views/pendiente.php"
     ],
-    // Opcional: enviamos el ID del pedido en el external_reference para rastrearlo luego
     "external_reference" => (string)$pedidoId 
 ];
 
-// 4. Enviar solicitud a Mercado Pago mediante cURL
+// 7. Enviar solicitud a Mercado Pago mediante cURL
 $ch = curl_init('https://api.mercadopago.com/checkout/preferences');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
@@ -88,6 +136,7 @@ curl_close($ch);
 
 $respuestaMp = json_decode($response, true);
 
+// 8. Redirigir a Mercado Pago si se generó correctamente la preferencia
 if ($httpCode === 201 && isset($respuestaMp['init_point'])) {
     header("Location: " . $respuestaMp['init_point']);
     exit;
@@ -97,3 +146,4 @@ if ($httpCode === 201 && isset($respuestaMp['init_point'])) {
     print_r($respuestaMp);
     echo "</pre>";
 }
+?>
