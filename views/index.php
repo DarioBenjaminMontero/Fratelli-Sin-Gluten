@@ -42,6 +42,14 @@ case 'pagar':
  $script = '../JS/pagar.js'; 
 break;
 case 'admin':
+    if (isset($_GET['page']) && $_GET['page'] === 'admin') {
+    $esAdmin = $_SESSION['Rol'] ?? 0;
+    
+    if ($esAdmin != 1) {
+        echo "<script>alert('Acceso denegado. No tienes permisos de administrador.'); window.location.href='index.php?page=main';</script>";
+        exit;
+    }
+}
     $vista = './admin.php';
     $vistaHeader = './header.php';
     $head = './head.php';

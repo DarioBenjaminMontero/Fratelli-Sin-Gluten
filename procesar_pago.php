@@ -1,4 +1,7 @@
 <?php
+
+//CUANDO PAGUES
+//http://localhost/fratelli-sin-gluten/views/exito.php?external_reference=AQU_EL_ID_DEL_PEDIDO
 session_start();
 
 // Cargamos la configuración y la conexión una sola vez
@@ -111,11 +114,12 @@ $accessToken = 'APP_USR-3012748563648786-101414-5ad925c95df47b5237a1d5881066419f
 
 $preferenceData = [
     "items" => $itemsArray,
-    "back_urls" => [
-        "success" => "http://localhost/frattellisingluten/views/exito.php",
-        "failure" => "http://localhost/frattellisingluten/views/fallo.php",
-        "pending" => "http://localhost/frattellisingluten/views/pendiente.php"
-    ],
+    //"back_urls" => array(
+        //"success" => "http://localhost/fratelli-sin-gluten/views/exito.php",
+      //  "failure" => "http://localhost/fratelli-sin-gluten/views/fallo.php",
+    //    "pending" => "http://localhost/fratelli-sin-gluten/views/pendiente.php"
+  //  ),
+   // "auto_return" => "approved",
     "external_reference" => (string)$pedidoId 
 ];
 
