@@ -350,7 +350,7 @@ $seccion = $_GET['subpage'] ?? 'productos';
                 </div>
             </section>
 
-       <!-- ================= SECCIÓN: VER PEDIDOS ================= -->
+ <!-- ================= SECCIÓN: VER PEDIDOS ================= -->
 <?php elseif ($seccion === 'pedidos'): ?>
 <section id="pedidos" class="admin-section">
     <div class="section-header mb-4">
@@ -358,19 +358,40 @@ $seccion = $_GET['subpage'] ?? 'productos';
         <p class="text-muted">Listado de todas las ventas y pedidos registrados en el sistema.</p>
     </div>
 
-    <!-- BUSCADOR DE PEDIDOS POR USUARIO -->
-    <div class="mb-3">
-        <?php $busquedaPedido = trim($_GET['q_pedido'] ?? ''); ?>
-        <form method="GET" action="index.php" class="d-flex gap-2">
+    <!-- FILTROS Y BUSCADOR DE PEDIDOS -->
+    <div class="card bg-light p-3 mb-4 border-0">
+        <form method="GET" action="index.php" class="row g-3 align-items-end">
             <input type="hidden" name="page" value="admin">
             <input type="hidden" name="subpage" value="pedidos">
-            <input type="text" name="q_pedido" value="<?= htmlspecialchars($busquedaPedido) ?>" class="form-control form-control-sm" placeholder="Buscar por nombre de usuario o correo..." style="max-width: 320px;">
-            <button type="submit" class="btn btn-dark btn-sm">Buscar</button>
-            <?php if (!empty($busquedaPedido)): ?>
-                <a href="index.php?page=admin&subpage=pedidos" class="btn btn-outline-secondary btn-sm">Limpiar</a>
-            <?php endif; ?>
-        </form>
-    </div>
+            
+            <!-- Buscador por usuario -->
+            <div class="col-md-4">
+                <label class="form-label small fw-bold">Buscar por Cliente</label>
+                <?php $busquedaPedido = trim($_GET['q_pedido'] ?? ''); ?>
+                <input type="text" name="q_pedido" value="<?= htmlspecialchars($busquedaPedido) ?>" class="form-control form-control-sm" placeholder="Nombre de usuario o correo...">
+            </div>
+
+            <!-- Filtro por Estado -->
+            <div class="col-md-3">
+                <label class="form-label small fw-bold">Filtrar por Estado</label>
+                <?php $filtroEstado = $_GET['estado'] ?? '0'; ?>
+                <select name="estado" class="form-control form-control-sm">
+                    <option value="">-- Todos los estados --</option>
+                    <option value="0" <?= ($filtroEstado === '0') ? 'selected' : '' ?>>Pendientes</option>
+                    <option value="1" <?= ($filtroEstado === '1') ? 'selected' : '' ?>>Completados</option>
+                </select>
+            </div>
+
+        <!-- Botones -->
+            <div class="col-md-3 d-flex gap-2 align-items-end">
+                <button type="submit" class="btn btn-dark btn-sm w-100">Filtrar</button>
+                <?php 
+                // Mostrar "Limpiar" solo si hay texto de búsqueda o si el usuario cambió explícitamente el filtro a "Todos los estados" (valor vacío '')
+                if (!empty($busquedaPedido) || (isset($_GET['estado']) && $_GET['estado'] === '')): 
+                ?>
+                    <a href="index.php?page=admin&subpage=pedidos" class="btn btn-outline-secondary btn-sm">Limpiar</a>
+                <?php endif; ?>
+            </div>
 
     <div class="table-responsive">
         <table class="table table-striped admin-table align-middle">
@@ -385,32 +406,40 @@ $seccion = $_GET['subpage'] ?? 'productos';
             </thead>
             <tbody>
                 <?php
-                // Construir consulta con filtro de búsqueda opcional
-                $wherePedido = "";
+                // Construir condiciones dinámicas para la consulta SQL
+                $wherePedido = "WHERE 1=1";
+                
+                // Filtro por texto de usuario
                 if (!empty($busquedaPedido)) {
                     $escapedPed = mysqli_real_escape_string($conexion, $busquedaPedido);
-                    $wherePedido = " AND (u.nombre_usuario LIKE '%$escapedPed%' OR u.correo LIKE '%$escapedPed%')";
+                    $wherePedido .= " AND (u.nombre_usuario LIKE '%$escapedPed%' OR u.correo LIKE '%$escapedPed%')";
+                }
+
+                // Filtro por estado
+                if ($filtroEstado !== '' && ($filtroEstado === '0' || $filtroEstado === '1')) {
+                    $estadoInt = (int)$filtroEstado;
+                    $wherePedido .= " AND p.estado = $estadoInt";
                 }
 
                 $q_pedidos = "SELECT p.PedidoID, p.estado, u.nombre_usuario, u.correo 
                               FROM pedidos p 
                               JOIN usuarios u ON p.UsuarioID = u.UsuarioID 
-                              WHERE 1=1 $wherePedido
+                              $wherePedido
                               ORDER BY p.PedidoID DESC";
                 $r_pedidos = mysqli_query($conexion, $q_pedidos);
 
                 if (mysqli_num_rows($r_pedidos) > 0) {
                     while ($ped = mysqli_fetch_assoc($r_pedidos)) {
-                     $badgeEstado = ($ped['estado'] == 1) 
-    ? '<span class="badge bg-success">Completado</span>' 
-    : '<span class="badge bg-warning text-dark">Pendiente</span>';
+                        $badgeEstado = ($ped['estado'] == 1) 
+                            ? '<span class="badge bg-success">Completado</span>' 
+                            : '<span class="badge bg-warning text-dark">Pendiente</span>';
 
-// Lógica del botón: Si está completado, muestra un texto fijo. Si está pendiente, muestra el botón con confirmación.
-if ($ped['estado'] == 1) {
-    $btnAccionEstado = "<span class='text-muted small'>Finalizado y descontado</span>";
-} else {
-    $btnAccionEstado = "<a href='../crud/actualizar_estado_pedido.php?id={$ped['PedidoID']}' class='btn btn-success btn-sm' onclick='return confirm(\"¿Estás seguro de marcar este pedido como completado? Esta acción descontará el stock de los productos y no se puede deshacer.\")'>Marcar Completado</a>";
-}
+                        // Lógica del botón de acción
+                        if ($ped['estado'] == 1) {
+                            $btnAccionEstado = "<span class='text-muted small'>Finalizado y descontado</span>";
+                        } else {
+                            $btnAccionEstado = "<a href='../crud/actualizar_estado_pedido.php?id={$ped['PedidoID']}' class='btn btn-success btn-sm' onclick='return confirm(\"¿Estás seguro de marcar este pedido como completado? Esta acción descontará el stock de los productos y no se puede deshacer.\")'>Marcar Completado</a>";
+                        }
 
                         // Buscar los productos de este pedido
                         $pedidoId = $ped['PedidoID'];
@@ -435,7 +464,7 @@ if ($ped['estado'] == 1) {
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5' class='text-center text-muted'>No se encontraron pedidos.</td></tr>";
+                    echo "<tr><td colspan='5' class='text-center text-muted'>No se encontraron pedidos con los filtros seleccionados.</td></tr>";
                 }
                 ?>
             </tbody>
