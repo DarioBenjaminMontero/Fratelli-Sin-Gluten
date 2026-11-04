@@ -32,7 +32,7 @@
                 <button id="botonPerfil">Perfil</button>
 
                 <?php if(isset($_SESSION['Rol']) && $_SESSION['Rol'] == 1): ?>
-                    <button id="botonAdmin">Poderes de admin</button>
+                    <button id="botonAdmin">Panel de admin</button>
                 <?php endif; ?>
                 
             </div>
